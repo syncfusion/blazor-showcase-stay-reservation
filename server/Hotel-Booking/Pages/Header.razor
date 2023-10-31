@@ -1,5 +1,4 @@
-﻿@inject AppointmentService service
-@using Syncfusion.Blazor.Schedule
+﻿@using Syncfusion.Blazor.Schedule
 @using Syncfusion.Blazor.Navigations
 @using Syncfusion.Blazor.Buttons
 @using Syncfusion.Blazor.Calendars
@@ -10,41 +9,40 @@
 @using System;
 @using Syncfusion.Blazor.Data;
 @using Microsoft.AspNetCore.Components;
-@using static System.Runtime.InteropServices.JavaScript.JSType;
 @using Syncfusion.Blazor;
 @using Syncfusion.Blazor.TreeMap;
 
 <div class="header-container">
     @{
-        if(!Service.mobile)
+        if (!Service.mobile)
         {
             <div class="search-container">
                 <SfTextBox Placeholder='Search Room' CssClass="app-search" Width="200px" ShowClearButton="true" @bind-Value="@Service.SearchValue" Input="@((Syncfusion.Blazor.Inputs.InputEventArgs  args) => ValueChangedHandler(args))"></SfTextBox>
             </div>
         }
-        }
-                <div class="navigation-container">
-                    <div class="e-btn-group e-outline">
-                        <SfButton IconCss="e-icons e-chevron-left" OnClick=OnMonthChangePrev></SfButton>
-                        <SfButton Content=@Service.CurrentDate.ToString("MMMM yyyy") ReadOnly="true"></SfButton>
-                        <SfButton IconCss="e-icons e-chevron-right" OnClick=OnMonthChangeNext></SfButton>
-                    </div>
-                </div>
-                <div class="button-container"> 
-                    <SfButton class="filter-button" OnClick="OpenSidebar">
-                        <img src="images/filter.svg" alt="filter" />
-                    </SfButton>
-                    <SfButton class="new-button" OnClick="HandleEditor">
-                        <img src="images/plus.svg" alt="filter" />
-                    @{
-                        if (!Service.mobile)
-                        {
-                            <div>New Booking</div>
-                        }
-                    }
-                    </SfButton>
-                </div>
-             </div>
+    }
+    <div class="navigation-container">
+        <div class="e-btn-group e-outline">
+            <SfButton IconCss="e-icons e-chevron-left" OnClick=OnMonthChangePrev></SfButton>
+            <SfButton Content=@Service.CurrentDate.ToString("MMMM yyyy") ReadOnly="true"></SfButton>
+            <SfButton IconCss="e-icons e-chevron-right" OnClick=OnMonthChangeNext></SfButton>
+        </div>
+    </div>
+    <div class="button-container">
+        <SfButton class="filter-button" OnClick="OpenSidebar">
+            <img src="images/filter.svg" alt="filter" />
+        </SfButton>
+        <SfButton class="new-button" OnClick="HandleEditor">
+            <img src="images/plus.svg" alt="filter" />
+            @{
+                if (!Service.mobile)
+                {
+                    <div>New Booking</div>
+                }
+            }
+        </SfButton>
+    </div>
+</div>
 
 @code {
     [Inject]
@@ -58,7 +56,7 @@
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        service.HeaderPageRef = this;
+        Service.HeaderPageRef = this;
     }
 
     public void OnMonthChangeNext()
@@ -86,7 +84,7 @@
                 EndTime = Service.DateTimePickerEndTime,
                 FloorId = 1,
                 RoomId = Service.ddlValue,
-                Price =  Service.price.ToString(),
+                Price = Service.price.ToString(),
                 Nights = Service.NoOfNights,
                 Adults = 2,
                 Children = 1,
@@ -101,7 +99,7 @@
 
     public void OpenSidebar()
     {
-        if(Service.sidebarRef.IsOpen)
+        if (Service.sidebarRef.IsOpen)
         {
             Service.sidebarRef.IsOpen = false;
         }

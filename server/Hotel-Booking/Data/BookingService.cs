@@ -2,15 +2,14 @@
 using Syncfusion.Blazor.HeatMap.Internal;
 using static HotelBooking.Pages.Index;
 using Syncfusion.Blazor.Schedule;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 using System;
 using HotelBooking.Data;
 
 namespace HotelBooking.Data
 {
-    public class FloorServices
+    public class BookingServices
     {
-        public  List<AppointmentData> GenerateStaticEvents(
+        public List<AppointmentData> GenerateStaticEvents(
         DateTime start,
         int floor,
         int resCount,
@@ -39,7 +38,7 @@ namespace HotelBooking.Data
                     {
                         randomCollection.Add(random + k);
                     }
-                    if(random > 26)
+                    if (random > 26)
                     {
                         continue;
                     }
@@ -52,7 +51,7 @@ namespace HotelBooking.Data
                     dateDifference = differenceInDays;
 
                     int nights = differenceInDays;
-                    
+
 
                     int floorCount = 0;
                     int roomsInFloor = 4;

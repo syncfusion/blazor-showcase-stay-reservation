@@ -9,10 +9,8 @@
 @using System;
 @using Syncfusion.Blazor.Data;
 @using Microsoft.AspNetCore.Components;
-@using static System.Runtime.InteropServices.JavaScript.JSType;
 @using Syncfusion.Blazor;
 @using Syncfusion.Blazor.TreeMap;
-@inject AppointmentService service
 
 <SfSidebar id="default-sidebar" class="app-sidebar"  EnableGestures=false MediaQuery="(min-width: 1024px)" @ref="Service.sidebarRef">
                 <ChildContent>
@@ -96,7 +94,7 @@
                                     <ContentTemplate>
                                         <div class="price-filter-container">
                                 
-                                            <SfSlider Type=SliderType.Range Value="BookingService.Range" CssClass="app-slider" Min="0" Max="500" @ref="Service.rangeSliderRef">
+                                            <SfSlider Type=SliderType.Range Value="Service.Range" CssClass="app-slider" Min="0" Max="500" @ref="Service.rangeSliderRef">
                                                 <SliderEvents TValue="int[]" OnTooltipChange="@OnSliderValueChanged" Created="OnSliderCreated "></SliderEvents>
                                                 <SliderTooltip IsVisible="true" Placement="TooltipPlacement.Before" ShowOn="TooltipShowOn.Always"></SliderTooltip>
                                             </SfSlider>
@@ -162,7 +160,7 @@
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        service.SidebarPageRef = this;
+        Service.SidebarPageRef = this;
     }
 
     public void OnSelectAllChecked(Syncfusion.Blazor.Buttons.ChangeEventArgs<bool> args)
@@ -337,7 +335,7 @@
     public void OnSliderValueChanged(SliderTooltipEventArgs<int[]> Args)
     {
         dynamic predicate = null;
-        BookingService.Range = new int[] { Args.Value[0], Args.Value[1] };
+        Service.Range = new int[] { Args.Value[0], Args.Value[1] };
         predicate = new Query().Where("Price", "GreaterThanOrEqual", Args.Value[0]).Where("Price", "LessThanOrEqual", Args.Value[1]);
         Service.query = predicate;
         Service.SchedulerPageRef?.StateChanged();

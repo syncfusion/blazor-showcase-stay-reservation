@@ -9,18 +9,18 @@
 @using System;
 @using Syncfusion.Blazor.Data;
 @using Microsoft.AspNetCore.Components;
-@using static System.Runtime.InteropServices.JavaScript.JSType;
 @using Syncfusion.Blazor;
 @using Syncfusion.Blazor.TreeMap;
-@inject AppointmentService service
+
 <div class="calendar-container">
-@{
-if (Service.showCalendar){
-<SfCalendar TValue="DateTime" id="calendar" CssClass="app-calendar" Value="Service.CurrentDate" @ref="Service.CalendarRef">
-    <CalendarEvents TValue="DateTime" Navigated="NavigatedHandler" ValueChange="OnChange" OnRenderDayCell="onRenderDayCellHandler"></CalendarEvents>
-</SfCalendar>
-} 
-}
+    @{
+        if (Service.showCalendar)
+        {
+            <SfCalendar TValue="DateTime" id="calendar" CssClass="app-calendar" Value="Service.CurrentDate" @ref="Service.CalendarRef">
+                <CalendarEvents TValue="DateTime" Navigated="NavigatedHandler" ValueChange="OnChange" OnRenderDayCell="onRenderDayCellHandler"></CalendarEvents>
+            </SfCalendar>
+        }
+    }
 </div>
 
 @code {
@@ -36,7 +36,7 @@ if (Service.showCalendar){
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        service.CalendarPageRef= this;
+        Service.CalendarPageRef = this;
     }
 
     public void NavigatedHandler(NavigatedEventArgs args)

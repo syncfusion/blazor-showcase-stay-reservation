@@ -5,7 +5,6 @@ using Syncfusion.Blazor.Data;
 using Syncfusion.Blazor.Schedule;
 using System;
 using Microsoft.AspNetCore.Components;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 using Syncfusion.Blazor;
 using Syncfusion.Blazor.Inputs;
 using Syncfusion.Blazor.TreeMap;
@@ -29,20 +28,9 @@ namespace HotelBooking.Pages
         protected override void OnInitialized()
         {
             base.OnInitialized();
-            service.IndexPageRef = this;
-            FloorServices floorService = new FloorServices();
+            Service.IndexPageRef = this;
+            BookingServices floorService = new BookingServices();
             Service.appointmentData = floorService.GenerateStaticEvents(DateTime.Now, 5, 20, 30);
-        }
-
-        protected async override Task OnAfterRenderAsync(bool firstRender)
-        {
-            if (firstRender)
-            {
-                Service.mobile = await JSRuntime.InvokeAsync<bool>("isDevice");
-                Service.isDevice = Service.mobile ? "Mobile" : "Desktop";
-                Service.HeaderPageRef.StateChanged();
-                Service.SchedulerPageRef.StateChanged();
-            }
         }
     }
 

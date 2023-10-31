@@ -8,7 +8,6 @@
 @using System.Globalization
 @using HotelBooking.Data
 @using System;
-@inject AppointmentService service
 @using Syncfusion.Blazor.Data;
 
 
@@ -34,13 +33,13 @@
     }
     @{
         string cssClass = string.Format("app-scheduler {0}", Service.renderSchedule);
-        <SfSchedule TValue="AppointmentData" Height="800px" @bind-SelectedDate="Service.CurrentDate" CssClass="@cssClass" @ref="Service.ScheduleRef" ShowHeaderBar="false" ShowQuickInfo="service.mobile ? true : false" EnableAutoRowHeight="true" AllowDragAndDrop="false" AllowResizing="false">
+        <SfSchedule TValue="AppointmentData" Height="800px" @bind-SelectedDate="Service.CurrentDate" CssClass="@cssClass" @ref="Service.ScheduleRef" ShowHeaderBar="false" ShowQuickInfo="Service.mobile ? true : false" EnableAutoRowHeight="true" AllowDragAndDrop="false" AllowResizing="false">
             <ScheduleTimeScale Enable="false"></ScheduleTimeScale>
             <ScheduleEvents TValue="AppointmentData" EventRendered="OnEventRendered" ActionCompleted="OnActionCompleted" OnActionBegin="OnActionBegin" OnRenderCell="OnCellRendered" OnPopupOpen="OnPopupOpen" Created="OnCreated" OnCellDoubleClick="CellDoubleClick"></ScheduleEvents>
-            <ScheduleGroup Resources="BookingService.Resources" EnableCompactView="false"></ScheduleGroup>
+            <ScheduleGroup Resources="Service.Resources" EnableCompactView="false"></ScheduleGroup>
             <ScheduleResources>
-                <ScheduleResource TItem="ResourceData" TValue="int" Query="@Service.ResourceQuery" DataSource="BookingService.FloorData" Field="FloorId" Title="Floors" Name="Floors" TextField="FloorText" IdField="Id" ColorField="FloorColor" AllowMultiple="false"></ScheduleResource>
-                <ScheduleResource TItem="ResourceData" TValue="int[]" Query="@Service.query" DataSource="BookingService.RoomData" Field="RoomId" Title="Rooms" Name="Rooms" TextField="RoomText" IdField="Id" GroupIDField="RoomsId" ColorField="RoomColor" AllowMultiple="true"></ScheduleResource>
+                <ScheduleResource TItem="ResourceData" TValue="int" Query="@Service.ResourceQuery" DataSource="Service.FloorData" Field="FloorId" Title="Floors" Name="Floors" TextField="FloorText" IdField="Id" ColorField="FloorColor" AllowMultiple="false"></ScheduleResource>
+                <ScheduleResource TItem="ResourceData" TValue="int[]" Query="@Service.query" DataSource="Service.RoomData" Field="RoomId" Title="Rooms" Name="Rooms" TextField="RoomText" IdField="Id" GroupIDField="RoomsId" ColorField="RoomColor" AllowMultiple="true"></ScheduleResource>
             </ScheduleResources>
             <ScheduleEventSettings DataSource=@Service.appointmentData IgnoreWhitespace="true">
                 <Template>
@@ -111,7 +110,7 @@
                             </SfDateTimePicker>
                         </div>
                         <div class="flex-prop">
-                            <SfDropDownList TValue="int" TItem="ResourceData" Placeholder="Floors" DataSource="BookingService.FloorData" Query="@Service.ResourceQuery" FloatLabelType="FloatLabelType.Always" @bind-Value="@((context as AppointmentData).FloorId)">
+                            <SfDropDownList TValue="int" TItem="ResourceData" Placeholder="Floors" DataSource="Service.FloorData" Query="@Service.ResourceQuery" FloatLabelType="FloatLabelType.Always" @bind-Value="@((context as AppointmentData).FloorId)">
                                 <DropDownListEvents TItem="ResourceData" TValue="int" ValueChange="FloorDropDownChanged" />
                                 <DropDownListFieldSettings Value="Id" Text="FloorText"></DropDownListFieldSettings>
                             </SfDropDownList>
@@ -124,7 +123,7 @@
                                     IsFloorDropDownChanged = false;
                                 }
                             }
-                            <SfDropDownList TValue="int" TItem="ResourceData" Placeholder="Select Room" DataSource="BookingService.RoomData" Query="@Service.DropDownQuery" FloatLabelType="FloatLabelType.Always" @bind-Value="@((context as AppointmentData).RoomId)" @ref="Service.DropDownRef">
+                            <SfDropDownList TValue="int" TItem="ResourceData" Placeholder="Select Room" DataSource="Service.RoomData" Query="@Service.DropDownQuery" FloatLabelType="FloatLabelType.Always" @bind-Value="@((context as AppointmentData).RoomId)" @ref="Service.DropDownRef">
                                 <DropDownListEvents TItem="ResourceData" TValue="int" ValueChange="RoomDropDownChanged" />
                                 <DropDownListFieldSettings Value="Id" Text="RoomText"></DropDownListFieldSettings>
                             </SfDropDownList>
@@ -133,7 +132,7 @@
                             @{
                                 TimeSpan differenceInDays = (context as AppointmentData).EndTime.Subtract((context as AppointmentData).StartTime);
                                 int noOfDays = Convert.ToInt32(differenceInDays.TotalDays);
-                                (context as AppointmentData).Price = (service.price * noOfDays).ToString();
+                                (context as AppointmentData).Price = (Service.price * noOfDays).ToString();
                             }
                             <SfTextBox ID="roomPrice" FloatLabelType="FloatLabelType.Always" Placeholder="Price per night (USD) *" Enabled="false" @bind-Value="@((context as AppointmentData).Price)"></SfTextBox>
                         </div>
@@ -173,11 +172,11 @@
                         </div>
                         <div class="flex-prop">
                             @{
-                                if(IsProofDropDownChanged)
+                                if (IsProofDropDownChanged)
                                 {
-                                (context as AppointmentData).Proof = service.proofDdlValue;
-                                IsProofDropDownChanged = false;
-                                 }
+                                    (context as AppointmentData).Proof = Service.proofDdlValue;
+                                    IsProofDropDownChanged = false;
+                                }
 
                             }
                             <SfDropDownList TValue="int" TItem="Proof" Placeholder="Select Proof" DataSource="@Proofs" FloatLabelType="FloatLabelType.Always" @bind-Value="@((context as AppointmentData).Proof)">
@@ -246,29 +245,29 @@
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        service.SchedulerPageRef = this;
+        Service.SchedulerPageRef = this;
     }
 
     public void OnCreated()
     {
         IsScheduleLoaded = true;
-        service.hide = "sb-hide";
-        service.visible = "visible";
-        service.opacity = "1";
-        service.IndexPageRef.StateChanged();
+        Service.hide = "sb-hide";
+        Service.visible = "visible";
+        Service.opacity = "1";
+        Service.IndexPageRef.StateChanged();
 
     }
 
     public void FloorDropDownChanged(Syncfusion.Blazor.DropDowns.ChangeEventArgs<int, ResourceData> args)
     {
         IsFloorDropDownChanged = true;
-        service.DropDownQuery = new Query().Where("RoomsId", "equal", args.Value);
-        var datasource = service.DropDownRef.DataSource as List<ResourceData>;
+        Service.DropDownQuery = new Query().Where("RoomsId", "equal", args.Value);
+        var datasource = Service.DropDownRef.DataSource as List<ResourceData>;
         for (int i = 0; i < datasource.Count - 1; i++)
         {
             if (datasource[i].RoomsId == args.Value)
             {
-                service.ddlValue = datasource[i].Id;
+                Service.ddlValue = datasource[i].Id;
                 break;
             }
         }
@@ -276,20 +275,20 @@
 
     public void RoomDropDownChanged(Syncfusion.Blazor.DropDowns.ChangeEventArgs<int, ResourceData> args)
     {
-        service.ddlValue = args.Value;
+        Service.ddlValue = args.Value;
         int currentGroupIndex = Service.ScheduleRef.GetGroupIndex(args.Value, "Rooms");
-        service.price = GetRoomPrice(currentGroupIndex);
+        Service.price = GetRoomPrice(currentGroupIndex);
     }
 
     public void ProofDropDownChanged(Syncfusion.Blazor.DropDowns.ChangeEventArgs<int, Proof> args)
     {
         IsProofDropDownChanged = true;
-        service.proofDdlValue = args.Value;
+        Service.proofDdlValue = args.Value;
     }
 
     public int GetRoomPrice(int index)
     {
-        ResourceDetails<AppointmentData> resource = service.ScheduleRef.GetResourceByIndex(index);
+        ResourceDetails<AppointmentData> resource = Service.ScheduleRef.GetResourceByIndex(index);
         int Price = 0;
         if (resource != null)
         {
@@ -347,7 +346,7 @@
             {
                 return;
             }
-            availability = await service.ScheduleRef.IsSlotAvailableAsync(records.First());
+            availability = await Service.ScheduleRef.IsSlotAvailableAsync(records.First());
             if (availability)
             {
                 if (args.ActionType == ActionType.EventCreate)
@@ -440,9 +439,9 @@
     public void CellDoubleClick(CellClickEventArgs args)
     {
         int groupIndex = args.GroupIndex;
-        ResourceDetails<AppointmentData> resource = service.ScheduleRef.GetResourceByIndex(groupIndex);
+        ResourceDetails<AppointmentData> resource = Service.ScheduleRef.GetResourceByIndex(groupIndex);
         int roomsId = Convert.ToInt32(resource.ResourceData.GetType().GetProperty("RoomsId").GetValue(resource.ResourceData, null));
-        service.DropDownQuery = new Query().Where("RoomsId", "equal", roomsId);
+        Service.DropDownQuery = new Query().Where("RoomsId", "equal", roomsId);
     }
 
     public class Proof
