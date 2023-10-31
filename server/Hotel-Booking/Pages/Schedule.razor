@@ -442,6 +442,7 @@
         ResourceDetails<AppointmentData> resource = Service.ScheduleRef.GetResourceByIndex(groupIndex);
         int roomsId = Convert.ToInt32(resource.ResourceData.GetType().GetProperty("RoomsId").GetValue(resource.ResourceData, null));
         Service.DropDownQuery = new Query().Where("RoomsId", "equal", roomsId);
+        IsProofDropDownChanged = true;
     }
 
     public class Proof

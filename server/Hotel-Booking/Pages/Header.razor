@@ -79,7 +79,7 @@
         AppointmentData eventData = new AppointmentData
             {
                 Id = 1,
-                Subject = "Add Event",
+                Subject = "",
                 StartTime = Service.DateTimePickerStartTime,
                 EndTime = Service.DateTimePickerEndTime,
                 FloorId = 1,
@@ -88,11 +88,11 @@
                 Nights = Service.NoOfNights,
                 Adults = 2,
                 Children = 1,
-                Purpose = "Vacation",
+                Purpose = "",
                 Proof = 1,
-                ProofNumber = "123ASD",
-                Email = "abc@gmail.com",
-                Phone = "1234567891"
+                ProofNumber = "",
+                Email = "",
+                Phone = ""
             };
         Service.ScheduleRef.OpenEditorAsync(eventData, CurrentAction.Add);
     }
