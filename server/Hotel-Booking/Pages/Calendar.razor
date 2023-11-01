@@ -14,10 +14,10 @@
 
 <div class="calendar-container">
     @{
-        if (Service.showCalendar)
+        if (Service.ShowCalendar)
         {
             <SfCalendar TValue="DateTime" id="calendar" CssClass="app-calendar" Value="Service.CurrentDate" @ref="Service.CalendarRef">
-                <CalendarEvents TValue="DateTime" Navigated="NavigatedHandler" ValueChange="OnChange" OnRenderDayCell="onRenderDayCellHandler"></CalendarEvents>
+                <CalendarEvents TValue="DateTime" Navigated="NavigatedHandler" ValueChange="OnChange" OnRenderDayCell="OnRenderDayCellHandler"></CalendarEvents>
             </SfCalendar>
         }
     }
@@ -55,7 +55,7 @@
         Service.HeaderPageRef?.StateChanged();
     }
 
-    public void onRenderDayCellHandler(RenderDayCellEventArgs args)
+    public void OnRenderDayCellHandler(RenderDayCellEventArgs args)
     {
         int count = 0;
         foreach (AppointmentData appointment in Service.appointmentData)

@@ -12,16 +12,16 @@
 @using System;
 @inject IJSRuntime JSRuntime;
 
-<SfMediaQuery @bind-ActiveBreakPoint="@activeBreakpoint"></SfMediaQuery>
+<SfMediaQuery @bind-ActiveBreakPoint="@ActiveBreakpoint"></SfMediaQuery>
 @{
-    if (activeBreakpoint == "Small")
+    if (ActiveBreakpoint == "Small")
     {
-        Service.mobile = true;
+        Service.Mobile = true;
 
     }
     else
     {
-        Service.mobile = false;
+        Service.Mobile = false;
     }
     if ((Service.HeaderPageRef != null) && (Service.SchedulerPageRef != null))
     {
@@ -31,7 +31,7 @@
     
 }
 
-<div class="sb-content-overlay @(Service.hide)">
+<div class="sb-content-overlay @(Service.Hide)">
     <div class="sb-loading">
         <svg class="circular" height="40" width="40">
             <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="6" stroke-miterlimit="10" />
@@ -41,7 +41,7 @@
         <h4 class="my-4">Bookings initializing...</h4>
     </div>
 </div>
-<div class="app-main-container" style="visibility:@(Service.visible); opacity:@(Service.opacity)">
+<div class="app-main-container" style="visibility:@(Service.Visible); opacity:@(Service.Opacity)">
     <SfAppBar cssClass="app-header">
         <img class="app-header-logo" src="images/bookmyrooms.png" alt="logo" />
         <AppBarSpacer></AppBarSpacer>
@@ -62,5 +62,5 @@
  </div>
 
 @code {
-    private string activeBreakpoint { get; set; }
+    private string ActiveBreakpoint { get; set; }
 }

@@ -10,7 +10,6 @@ using Syncfusion.Blazor.Inputs;
 using Syncfusion.Blazor.TreeMap;
 using Syncfusion.Blazor.Navigations;
 using System.ComponentModel;
-using Microsoft.JSInterop;
 using System.Reflection;
 
 namespace HotelBooking.Pages
@@ -19,8 +18,6 @@ namespace HotelBooking.Pages
     {
         [Inject]
         public AppointmentService Service { get; set; }
-        [Inject]
-        protected IJSRuntime JsRuntime { get; set; }
         internal void StateChanged()
         {
             StateHasChanged();

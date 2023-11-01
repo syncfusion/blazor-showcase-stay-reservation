@@ -20,26 +20,26 @@
                 ResourceCollection = Service.ScheduleRef.GetResourceCollections();
                 if (ResourceCollection.Count < 2)
                 {
-                    Service.renderSchedule = "hide-schedule";
-                    Service.showNoSchedule = "";
+                    Service.RenderSchedule = "hide-schedule";
+                    Service.ShowNoSchedule = "";
                 }
                 else
                 {
-                    Service.renderSchedule = "";
-                    Service.showNoSchedule = "hide-no-schedule";
+                    Service.RenderSchedule = "";
+                    Service.ShowNoSchedule = "hide-no-schedule";
                 }
             }
         }
     }
     @{
-        string cssClass = string.Format("app-scheduler {0}", Service.renderSchedule);
-        <SfSchedule TValue="AppointmentData" Height="800px" @bind-SelectedDate="Service.CurrentDate" CssClass="@cssClass" @ref="Service.ScheduleRef" ShowHeaderBar="false" ShowQuickInfo="Service.mobile ? true : false" EnableAutoRowHeight="true" AllowDragAndDrop="false" AllowResizing="false">
+        string cssClass = string.Format("app-scheduler {0}", Service.RenderSchedule);
+        <SfSchedule TValue="AppointmentData" Height="800px" @bind-SelectedDate="Service.CurrentDate" CssClass="@cssClass" @ref="Service.ScheduleRef" ShowHeaderBar="false" ShowQuickInfo="Service.Mobile ? true : false" EnableAutoRowHeight="true" AllowDragAndDrop="false" AllowResizing="false">
             <ScheduleTimeScale Enable="false"></ScheduleTimeScale>
-            <ScheduleEvents TValue="AppointmentData" EventRendered="OnEventRendered" ActionCompleted="OnActionCompleted" OnActionBegin="OnActionBegin" OnRenderCell="OnCellRendered" OnPopupOpen="OnPopupOpen" Created="OnCreated" OnCellDoubleClick="CellDoubleClick"></ScheduleEvents>
+            <ScheduleEvents TValue="AppointmentData" EventRendered="OnEventRendered" ActionCompleted="OnActionCompleted" OnActionBegin="OnActionBegin" OnRenderCell="OnCellRendered" OnPopupOpen="OnPopupOpen" Created="OnCreated" OnCellDoubleClick="CellDoubleClick" OnCellClick="CellClick"></ScheduleEvents>
             <ScheduleGroup Resources="Service.Resources" EnableCompactView="false"></ScheduleGroup>
             <ScheduleResources>
                 <ScheduleResource TItem="ResourceData" TValue="int" Query="@Service.ResourceQuery" DataSource="Service.FloorData" Field="FloorId" Title="Floors" Name="Floors" TextField="FloorText" IdField="Id" ColorField="FloorColor" AllowMultiple="false"></ScheduleResource>
-                <ScheduleResource TItem="ResourceData" TValue="int[]" Query="@Service.query" DataSource="Service.RoomData" Field="RoomId" Title="Rooms" Name="Rooms" TextField="RoomText" IdField="Id" GroupIDField="RoomsId" ColorField="RoomColor" AllowMultiple="true"></ScheduleResource>
+                <ScheduleResource TItem="ResourceData" TValue="int[]" Query="@Service.FilterQuery" DataSource="Service.RoomData" Field="RoomId" Title="Rooms" Name="Rooms" TextField="RoomText" IdField="Id" GroupIDField="RoomsId" ColorField="RoomColor" AllowMultiple="true"></ScheduleResource>
             </ScheduleResources>
             <ScheduleEventSettings DataSource=@Service.appointmentData IgnoreWhitespace="true">
                 <Template>
@@ -119,7 +119,7 @@
                             @{
                                 if (IsFloorDropDownChanged)
                                 {
-                                    (context as AppointmentData).RoomId = Service.ddlValue;
+                                    (context as AppointmentData).RoomId = Service.RoomsDdlValue;
                                     IsFloorDropDownChanged = false;
                                 }
                             }
@@ -132,7 +132,7 @@
                             @{
                                 TimeSpan differenceInDays = (context as AppointmentData).EndTime.Subtract((context as AppointmentData).StartTime);
                                 int noOfDays = Convert.ToInt32(differenceInDays.TotalDays);
-                                (context as AppointmentData).Price = (Service.price * noOfDays).ToString();
+                                (context as AppointmentData).Price = (Service.RoomPrice * noOfDays).ToString();
                             }
                             <SfTextBox ID="roomPrice" FloatLabelType="FloatLabelType.Always" Placeholder="Price per night (USD) *" Enabled="false" @bind-Value="@((context as AppointmentData).Price)"></SfTextBox>
                         </div>
@@ -174,7 +174,7 @@
                             @{
                                 if (IsProofDropDownChanged)
                                 {
-                                    (context as AppointmentData).Proof = Service.proofDdlValue;
+                                    (context as AppointmentData).Proof = Service.ProofDdlValue;
                                     IsProofDropDownChanged = false;
                                 }
 
@@ -212,7 +212,7 @@
         <SfToast ID="toast_default" @ref="Service.ToastObj" Content="@Service.ToastContent" Timeout="5000" Icon="e-meeting" ShowCloseButton="true" Height="70px" Width="400px">
             <ToastPosition X="@Service.ToastPositionXValue" Y="@Service.ToastPositionYValue"></ToastPosition>
         </SfToast>
-        <div class="@Service.showNoSchedule">
+        <div class="@Service.ShowNoSchedule">
             <div class="no-schedule">
                 <strong style="font-size:16px">
                     No properties found
@@ -251,9 +251,9 @@
     public void OnCreated()
     {
         IsScheduleLoaded = true;
-        Service.hide = "sb-hide";
-        Service.visible = "visible";
-        Service.opacity = "1";
+        Service.Hide = "sb-hide";
+        Service.Visible = "visible";
+        Service.Opacity = "1";
         Service.IndexPageRef.StateChanged();
 
     }
@@ -267,7 +267,7 @@
         {
             if (datasource[i].RoomsId == args.Value)
             {
-                Service.ddlValue = datasource[i].Id;
+                Service.RoomsDdlValue = datasource[i].Id;
                 break;
             }
         }
@@ -275,15 +275,15 @@
 
     public void RoomDropDownChanged(Syncfusion.Blazor.DropDowns.ChangeEventArgs<int, ResourceData> args)
     {
-        Service.ddlValue = args.Value;
+        Service.RoomsDdlValue = args.Value;
         int currentGroupIndex = Service.ScheduleRef.GetGroupIndex(args.Value, "Rooms");
-        Service.price = GetRoomPrice(currentGroupIndex);
+        Service.RoomPrice = GetRoomPrice(currentGroupIndex);
     }
 
     public void ProofDropDownChanged(Syncfusion.Blazor.DropDowns.ChangeEventArgs<int, Proof> args)
     {
         IsProofDropDownChanged = true;
-        Service.proofDdlValue = args.Value;
+        Service.ProofDdlValue = args.Value;
     }
 
     public int GetRoomPrice(int index)
@@ -329,9 +329,9 @@
 
     public void OnActionCompleted(ActionEventArgs<AppointmentData> args)
     {
-        Service.showCalendar = false;
+        Service.ShowCalendar = false;
         Service.CalendarPageRef?.StateChanged();
-        Service.showCalendar = true;
+        Service.ShowCalendar = true;
         Service.CalendarPageRef?.StateChanged();
         Service.SidebarPageRef?.StateChanged();
     }
@@ -389,6 +389,7 @@
             args.IsDisabled = true;
         }
     }
+
     public void EndTimeDisableDate(RenderDayCellEventArgs args)
     {
         if (args.Date < Service.DateTimePickerStartTime.Date)
@@ -443,6 +444,21 @@
         int roomsId = Convert.ToInt32(resource.ResourceData.GetType().GetProperty("RoomsId").GetValue(resource.ResourceData, null));
         Service.DropDownQuery = new Query().Where("RoomsId", "equal", roomsId);
         IsProofDropDownChanged = true;
+        if(roomsId==0)
+        {
+            args.Cancel = true;
+        } 
+    }
+
+    public void CellClick(CellClickEventArgs args)
+    {
+        int groupIndex = args.GroupIndex;
+        ResourceDetails<AppointmentData> resource = Service.ScheduleRef.GetResourceByIndex(groupIndex);
+        int roomsId = Convert.ToInt32(resource.ResourceData.GetType().GetProperty("RoomsId").GetValue(resource.ResourceData, null));
+        if (roomsId == 0)
+        {
+            args.Cancel = true;
+        }
     }
 
     public class Proof

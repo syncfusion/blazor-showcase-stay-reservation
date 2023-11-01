@@ -12,7 +12,7 @@
 @using Syncfusion.Blazor;
 @using Syncfusion.Blazor.TreeMap;
 
-<SfSidebar id="default-sidebar" class="app-sidebar"  EnableGestures=false MediaQuery="(min-width: 1024px)" @ref="Service.sidebarRef">
+<SfSidebar id="default-sidebar" class="app-sidebar" EnableGestures=false MediaQuery="(min-width: 1024px)" @ref="Service.SidebarRef">
                 <ChildContent>
                     <div class="sidebar-header">
                     <div class="sidebar-title">Filter By</div>
@@ -93,8 +93,8 @@
                                 <AccordionItem Header="Price">
                                     <ContentTemplate>
                                         <div class="price-filter-container">
-                                
-                                            <SfSlider Type=SliderType.Range Value="Service.Range" CssClass="app-slider" Min="0" Max="500" @ref="Service.rangeSliderRef">
+
+                                            <SfSlider Type=SliderType.Range Value="Service.Range" CssClass="app-slider" Min="0" Max="500" @ref="Service.RangeSliderRef">
                                                 <SliderEvents TValue="int[]" OnTooltipChange="@OnSliderValueChanged" Created="OnSliderCreated "></SliderEvents>
                                                 <SliderTooltip IsVisible="true" Placement="TooltipPlacement.Before" ShowOn="TooltipShowOn.Always"></SliderTooltip>
                                             </SfSlider>
@@ -135,7 +135,7 @@
                 </ChildContent>
             </SfSidebar>
             @{
-                if (Service.isOverlay)
+                if (Service.IsOverlay)
                 {
                 <div class="app-sidebar-overlay show" />
                 }
@@ -169,25 +169,25 @@
         if (Service.SelectAllChecked)
         {
             Service.GroundFloorChecked = Service.FirstFloorChecked = Service.SecondFloorChecked = Service.ThirdFloorChecked = Service.FourthFloorChecked = true;
-            floorHandler();
+            FloorHandler();
         }
         else
         {
             Service.GroundFloorChecked = Service.FirstFloorChecked = Service.SecondFloorChecked = Service.ThirdFloorChecked = Service.FourthFloorChecked = false;
-            floorHandler();
+            FloorHandler();
         }
 
     }
     public async Task OnSliderCreated()
     {
         
-        await Service.rangeSliderRef.RepositionAsync();
+        await Service.RangeSliderRef.RepositionAsync();
         await Task.Delay(100);
-        await Service.rangeSliderRef.RepositionAsync();
+        await Service.RangeSliderRef.RepositionAsync();
         StateChanged();
     }
 
-    public void floorHandler()
+    public void FloorHandler()
     {
         dynamic predicate = null;
         if (Service.GroundFloorChecked)
@@ -255,7 +255,7 @@
 
     public void OnCheckBoxChange(Syncfusion.Blazor.Buttons.ChangeEventArgs<bool> args)
     {
-        floorHandler();
+        FloorHandler();
     }
 
     public void onFeaturesChecked(Syncfusion.Blazor.Buttons.ChangeEventArgs<bool> args)
@@ -328,7 +328,7 @@
             }
         }
 
-        Service.query = predicate;
+        Service.FilterQuery = predicate;
         Service.SchedulerPageRef?.StateChanged();
     }
 
@@ -337,7 +337,7 @@
         dynamic predicate = null;
         Service.Range = new int[] { Args.Value[0], Args.Value[1] };
         predicate = new Query().Where("Price", "GreaterThanOrEqual", Args.Value[0]).Where("Price", "LessThanOrEqual", Args.Value[1]);
-        Service.query = predicate;
+        Service.FilterQuery = predicate;
         Service.SchedulerPageRef?.StateChanged();
     }
 
@@ -375,10 +375,10 @@
 
     public void SidebarClose()
     {
-        Service.isOverlay = false;
-        if (Service.sidebarRef.IsOpen)
+        Service.IsOverlay = false;
+        if (Service.SidebarRef.IsOpen)
         {
-            Service.sidebarRef.IsOpen = false;
+            Service.SidebarRef.IsOpen = false;
         }
         StateChanged();
     }

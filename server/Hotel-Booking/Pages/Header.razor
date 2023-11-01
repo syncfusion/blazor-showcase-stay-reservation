@@ -14,7 +14,7 @@
 
 <div class="header-container">
     @{
-        if (!Service.mobile)
+        if (!Service.Mobile)
         {
             <div class="search-container">
                 <SfTextBox Placeholder='Search Room' CssClass="app-search" Width="200px" ShowClearButton="true" @bind-Value="@Service.SearchValue" Input="@((Syncfusion.Blazor.Inputs.InputEventArgs  args) => ValueChangedHandler(args))"></SfTextBox>
@@ -35,7 +35,7 @@
         <SfButton class="new-button" OnClick="HandleEditor">
             <img src="images/plus.svg" alt="filter" />
             @{
-                if (!Service.mobile)
+                if (!Service.Mobile)
                 {
                     <div>New Booking</div>
                 }
@@ -65,13 +65,13 @@
         Service.SchedulerPageRef?.StateChanged();
         Service.CalendarPageRef?.StateChanged();
     }
+
     public void OnMonthChangePrev()
     {
         Service.CurrentDate = Service.CurrentDate.AddMonths(-1);
         Service.SchedulerPageRef?.StateChanged();
         Service.CalendarPageRef?.StateChanged();
     }
-
 
     public void HandleEditor()
     {
@@ -83,8 +83,8 @@
                 StartTime = Service.DateTimePickerStartTime,
                 EndTime = Service.DateTimePickerEndTime,
                 FloorId = 1,
-                RoomId = Service.ddlValue,
-                Price = Service.price.ToString(),
+                RoomId = Service.RoomsDdlValue,
+                Price = Service.RoomPrice.ToString(),
                 Nights = Service.NoOfNights,
                 Adults = 2,
                 Children = 1,
@@ -99,18 +99,17 @@
 
     public void OpenSidebar()
     {
-        if (Service.sidebarRef.IsOpen)
+        if (Service.SidebarRef.IsOpen)
         {
-            Service.sidebarRef.IsOpen = false;
+            Service.SidebarRef.IsOpen = false;
         }
         else
         {
-            Service.sidebarRef.IsOpen = true;
-            Service.isOverlay = true;
+            Service.SidebarRef.IsOpen = true;
+            Service.IsOverlay = true;
         }
         Service.SidebarPageRef.StateChanged();
     }
-
 
     private void ValueChangedHandler(Syncfusion.Blazor.Inputs.InputEventArgs args)
     {
@@ -119,13 +118,13 @@
             dynamic predicate = null;
 
             predicate = new Query().Search(args.Value, new List<string> { "RoomText" }, null, true, true);
-            Service.query = predicate;
+            Service.FilterQuery = predicate;
             Service.SchedulerPageRef?.StateChanged();
 
         }
         else
         {
-            Service.query = null;
+            Service.FilterQuery = null;
         }
     }
 }

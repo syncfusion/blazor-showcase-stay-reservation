@@ -42,24 +42,24 @@ namespace HotelBooking.Data
             this.KitchenId = "4";
             this.BalconyId = "5";
             this.InternetId = "6";
-            this.ddlValue = 1;
-            this.price = 500;
+            this.RoomsDdlValue = 1;
+            this.RoomPrice = 500;
             this.ResourceQuery = new Query().Where(new WhereFilter() { Field = "Id", Operator = "equal", value = 1 }.Or(new WhereFilter() { Field = "Id", Operator = "equal", value = 2 }));
-            this.query = new Query().Search("Television", new List<string> { "Amenities" }, null, true, true);
+            this.FilterQuery = new Query().Search("Television", new List<string> { "Amenities" }, null, true, true);
             this.DropDownQuery = new Query().Where(new WhereFilter() { Field = "RoomsId", Operator = "equal", value = 1 });
-            this.showCalendar = true;
+            this.ShowCalendar = true;
             this.DateTimePickerStartTime = DateTime.Now.Date;
             this.DateTimePickerEndTime = DateTime.Now.Date.AddDays(1);
             TimeSpan difference = this.DateTimePickerEndTime.Subtract(this.DateTimePickerStartTime);
             int totalDays = Convert.ToInt32(difference.TotalDays);
             this.NoOfNights = totalDays - 1;
-            this.isOverlay = false;
+            this.IsOverlay = false;
             this.ToastPositionXValue = "right";
             this.ToastPositionYValue = "bottom";
             this.ToastContent = "";
-            this.renderSchedule = "";
-            this.showNoSchedule = "hide-no-schedule";
-            this.proofDdlValue = 1;
+            this.RenderSchedule = "";
+            this.ShowNoSchedule = "hide-no-schedule";
+            this.ProofDdlValue = 1;
             this.Resources = new string[] { "Floors", "Rooms" };
             this.FloorData = new List<ResourceData>
             {
@@ -123,24 +123,23 @@ namespace HotelBooking.Data
         public string SearchValue { get; set; }
         public Query ResourceQuery { get; set; }
         public Query DropDownQuery { get; set; }
-        public Query query { get; set; }
-        public int ddlValue { get; set; }
-        public int price { get; set; }
+        public Query FilterQuery { get; set; }
+        public int RoomsDdlValue { get; set; }
+        public int RoomPrice { get; set; }
         public DateTime DateTimePickerStartTime { get; set; }
         public DateTime DateTimePickerEndTime { get; set; }
         public int NoOfNights { get; set; }
-        public bool isOverlay { get; set; }
+        public bool IsOverlay { get; set; }
         public string ToastPositionXValue { get; set; }
         public string ToastPositionYValue { get; set; }
         public string ToastContent { get; set; }
-        public string isDevice { get; set; }
-        public bool mobile { get; set; }
-        public string renderSchedule { get; set; }
-        public string showNoSchedule { get; set; }
-        public int proofDdlValue { get; set; }
-        public string hide { get; set; }
-        public string opacity { get; set; } = "0";
-        public string visible { get; set; } = "hidden";
+        public bool Mobile { get; set; }
+        public string RenderSchedule { get; set; }
+        public string ShowNoSchedule { get; set; }
+        public int ProofDdlValue { get; set; }
+        public string Hide { get; set; }
+        public string Opacity { get; set; } = "0";
+        public string Visible { get; set; } = "hidden";
         public string[] Resources { get; set; }
         public List<ResourceData> FloorData { get; set; }
         public List<ResourceData> RoomData { get; set; }
@@ -169,13 +168,13 @@ namespace HotelBooking.Data
         { "19_5", "#6F47FF" },
         { "20_5", "#22D3EE" },
     };
-        public bool showCalendar { get; set; }
+        public bool ShowCalendar { get; set; }
         public SfSchedule<AppointmentData> ScheduleRef;
         public SfCalendar<DateTime> CalendarRef;
         public SfDropDownBase<ResourceData> DropDownRef;
-        public SfSidebar sidebarRef;
+        public SfSidebar SidebarRef;
         public SfToast ToastObj;
-        public SfSlider<int[]> rangeSliderRef;
+        public SfSlider<int[]> RangeSliderRef;
         internal Schedule? SchedulerPageRef { get; set; }
         internal Header? HeaderPageRef { get; set; }
         internal Sidebar? SidebarPageRef { get; set; }

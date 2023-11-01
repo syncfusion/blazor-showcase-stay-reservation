@@ -13,9 +13,9 @@
     left: 0px;
 }
 
-.sb-content-overlay.sb-hide {
-    display: none;
-}
+    .sb-content-overlay.sb-hide {
+        display: none;
+    }
 
 .sb-loading {
     width: 56px;
@@ -39,6 +39,7 @@ svg {
     overflow: hidden;
     vertical-align: middle;
 }
+
 .path {
     stroke-dasharray: 1, 200;
     stroke-dashoffset: 0;
@@ -69,7 +70,8 @@ svg {
         stroke-dashoffset: -124;
     }
 }
-    .e-calendar.app-calendar {
+
+.e-calendar.app-calendar {
     border: 0;
     box-shadow: none;
 }
@@ -339,29 +341,33 @@ svg {
                 padding: 24px;
             }
 
-            .app-main-container .main-container .content-container .schedule-container {
-                align-items: center;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                padding: 0 24px;
-            }
+.app-scheduler.e-schedule .e-timeline-month-view .e-resource-group-cells.e-selected-cell {
+    background: #f9fafb !important;
+}
 
-                .app-main-container .main-container .content-container .schedule-container .no-schedule {
-                    align-items: center;
-                    background: #fff;
-                    display: flex;
-                    flex-direction: column;
-                    font-family: Inter;
-                    gap: 16px;
-                    padding: 16px;
-                    margin-left: 75px;
-                    justify-content: center;
-                }
+.app-main-container .main-container .content-container .schedule-container {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 24px;
+}
 
-                .app-main-container .main-container .content-container .schedule-container .hide-schedule {
-                    display: none;
-                }
+    .app-main-container .main-container .content-container .schedule-container .no-schedule {
+        align-items: center;
+        background: #fff;
+        display: flex;
+        flex-direction: column;
+        font-family: Inter;
+        gap: 16px;
+        padding: 16px;
+        margin-left: 75px;
+        justify-content: center;
+    }
+
+    .app-main-container .main-container .content-container .schedule-container .hide-schedule {
+        display: none;
+    }
 
 .hide-no-schedule {
     display: none;
