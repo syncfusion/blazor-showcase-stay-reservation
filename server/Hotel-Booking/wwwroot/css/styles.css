@@ -179,11 +179,15 @@ svg {
         width: 90%;
     }
 
-        .app-filters.e-accordion .price-filter-container .slider-price {
-            align-items: center;
-            display: flex;
-            justify-content: space-between;
-        }
+    .e-accordion .e-acrdn-item .e-acrdn-panel .e-acrdn-content > * {
+        overflow: initial;
+    }
+
+.app-filters.e-accordion .price-filter-container .slider-price {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
 
 .search-container .app-search .e-lib.e-input {
     height: 32px;
@@ -511,7 +515,6 @@ svg {
         }
 
 .app-sidebar-overlay {
-    background: #000;
     display: none;
     height: 100vh;
     left: 0;
@@ -521,6 +524,8 @@ svg {
     transform: none !important;
     width: 100vw;
     z-index: 1;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
 }
 
 @media screen and (width <=1024px) {

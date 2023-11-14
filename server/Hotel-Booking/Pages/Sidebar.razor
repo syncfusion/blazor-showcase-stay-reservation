@@ -93,14 +93,13 @@
                                 <AccordionItem Header="Price">
                                     <ContentTemplate>
                                         <div class="price-filter-container">
-
                                             <SfSlider Type=SliderType.Range Value="Service.Range" CssClass="app-slider" Min="0" Max="500" @ref="Service.RangeSliderRef">
                                                 <SliderEvents TValue="int[]" OnTooltipChange="@OnSliderValueChanged" Created="OnSliderCreated "></SliderEvents>
                                                 <SliderTooltip IsVisible="true" Placement="TooltipPlacement.Before" ShowOn="TooltipShowOn.Always"></SliderTooltip>
                                             </SfSlider>
                                 <div class="slider-price">
-                                    <span class="slider-label-start">0</span>
-                                    <span class="slider-label-end">500</span>
+                                    <span class="slider-label-start">$0</span>
+                                    <span class="slider-label-end">$500</span>
                                 </div>
                                         </div>
                                     </ContentTemplate>
@@ -180,7 +179,7 @@
     }
     public async Task OnSliderCreated()
     {
-        
+
         await Service.RangeSliderRef.RepositionAsync();
         await Task.Delay(100);
         await Service.RangeSliderRef.RepositionAsync();
@@ -343,9 +342,9 @@
 
     public string GetBookedRoomStatus(int floorId)
     {
-        int availableRoom = 0;
+        string availableRoom;
         availableRoom = AvailableRooms(floorId);
-        if (availableRoom == 0)
+        if (availableRoom == "")
         {
             return "full";
         }
@@ -355,7 +354,7 @@
         }
     }
 
-    public int AvailableRooms(int floorId)
+    public string AvailableRooms(int floorId)
     {
         int count = 0;
         int numberofRooms = 4;
@@ -370,7 +369,14 @@
         });
         availableRooms = numberofRooms - count;
         count = 0;
-        return availableRooms;
+        if(availableRooms == 0)
+        {
+            return "";
+        }
+        else
+        {
+            return availableRooms.ToString();
+        }
     }
 
     public void SidebarClose()
