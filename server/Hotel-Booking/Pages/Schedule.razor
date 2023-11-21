@@ -219,6 +219,20 @@
                         </div>
                     }
                 </CellTemplate>
+                <ResourceHeaderTemplate>
+                    @{
+                        var resourceData = (context as TemplateContext).ResourceData as ResourceData;
+                        <div class='template-wrap'>
+                            <div class="resource-details">
+                                <div class="resource-name">@(resourceData.FloorText)</div>
+                            </div>
+                            <div class="room-details">
+                                <div class="resource-room">@(resourceData.RoomText)</div>
+                                <div class="resource-description">@(resourceData.Description)</div>
+                            </div>
+                        </div>
+                    }
+                </ResourceHeaderTemplate>
             </ScheduleTemplates>
         </SfSchedule>
         <SfToast ID="toast_default" @ref="Service.ToastObj" Content="@Service.ToastContent" Timeout="5000" Icon="e-meeting" ShowCloseButton="true" Height="70px" Width="400px">

@@ -48,8 +48,8 @@ namespace HotelBooking.Data
             this.FilterQuery = new Query().Search("Television", new List<string> { "Amenities" }, null, true, true);
             this.DropDownQuery = new Query().Where(new WhereFilter() { Field = "RoomsId", Operator = "equal", value = 1 });
             this.ShowCalendar = true;
-            this.DateTimePickerStartTime = DateTime.Now.Date;
-            this.DateTimePickerEndTime = DateTime.Now.Date.AddDays(1);
+            this.DateTimePickerStartTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month,DateTime.Now.Day, 12,0,0);
+            this.DateTimePickerEndTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 12, 0, 0).AddDays(1);
             TimeSpan difference = this.DateTimePickerEndTime.Subtract(this.DateTimePickerStartTime);
             int totalDays = Convert.ToInt32(difference.TotalDays);
             this.NoOfNights = totalDays - 1;
@@ -72,26 +72,26 @@ namespace HotelBooking.Data
             };
             this.RoomData = new List<ResourceData>
             {
-                new ResourceData{ RoomText = "Alpha Room", Id = 1, RoomsId = 1, RoomColor = "#FDF4FF",Price=500, Amenities =  "Television, Projector, Balcony, Whiteboard, Kitchen, Internet"  },
-                new ResourceData{ RoomText = "Beta Room", Id = 2, RoomsId = 1, RoomColor = "#F0FDF4",Price=400, Amenities = "Television, Projector, Balcony, Whiteboard, Kitchen"  },
-                new ResourceData{ RoomText = "Gamma Room", Id = 3, RoomsId = 1, RoomColor = "#ECE7FF",Price=250, Amenities =  "Television, Projector, Balcony"  },
-                new ResourceData{ RoomText = "Zeta Room", Id = 4, RoomsId = 1, RoomColor = "#ECFEFF",Price=150, Amenities = "Television"  },
-                new ResourceData{ RoomText = "Alpha Room", Id = 5, RoomsId = 2, RoomColor = "#FDF2F8",Price=500, Amenities = "Television, Projector, Balcony, Whiteboard, Kitchen, Internet" },
-                new ResourceData{ RoomText = "Beta Room", Id = 6, RoomsId = 2, RoomColor = "#FFF7ED" ,Price=400, Amenities = "Television, Projector, Balcony, Whiteboard, Kitchen" },
-                new ResourceData{ RoomText = "Gamma Room", Id = 7, RoomsId = 2, RoomColor = "#FDF4FF",Price=250, Amenities = "Television, Projector, Balcony" },
-                new ResourceData{ RoomText = "Zeta Room", Id = 8, RoomsId = 2, RoomColor = "#ECFEFF",Price=150, Amenities = "Television" },
-                new ResourceData{ RoomText = "Alpha Room", Id = 9, RoomsId = 3, RoomColor = "#FDF4FF",Price=500, Amenities = "Television, Projector, Balcony, Whiteboard, Kitchen, Internet" },
-                new ResourceData{ RoomText = "Beta Room", Id = 10, RoomsId = 3, RoomColor = "#F0FDF4",Price=400, Amenities = "Television, Projector, Balcony, Whiteboard, Kitchen"  },
-                new ResourceData{ RoomText = "Gamma Room", Id = 11, RoomsId = 3, RoomColor = "#ECE7FF",Price=250, Amenities = "Television, Projector, Balcony" },
-                new ResourceData{ RoomText = "Zeta Room", Id = 12, RoomsId = 3, RoomColor = "#ECFEFF",Price=150, Amenities = "Television" },
-                new ResourceData{ RoomText = "Alpha Room", Id = 13, RoomsId = 4, RoomColor = "#FDF2F8",Price=500, Amenities = "Television, Projector, Balcony, Whiteboard, Kitchen, Internet" },
-                new ResourceData{ RoomText = "Beta Room", Id = 14, RoomsId = 4, RoomColor = "#FFF7ED",Price=400, Amenities = "Television, Projector, Balcony, Whiteboard, Kitchen"  },
-                new ResourceData{ RoomText = "Gamma Room", Id = 15, RoomsId = 4, RoomColor = "#FDF4FF",Price=250, Amenities = "Television, Projector, Balcony" },
-                new ResourceData{ RoomText = "Zeta Room", Id = 16, RoomsId = 4, RoomColor = "#ECFEFF",Price=150, Amenities = "Television" },
-                new ResourceData{ RoomText = "Alpha Room", Id = 17, RoomsId = 5, RoomColor = "#FDF4FF",Price=500, Amenities = "Television, Projector, Balcony, Whiteboard, Kitchen, Internet" },
-                new ResourceData{ RoomText = "Beta Room", Id = 18, RoomsId = 5, RoomColor = "#F0FDF4",Price=400, Amenities = "Television, Projector, Balcony, Whiteboard, Kitchen"  },
-                new ResourceData{ RoomText = "Gamma Room", Id = 19, RoomsId = 5, RoomColor = "#ECE7FF",Price=250, Amenities = "Television, Projector, Balcony" },
-                new ResourceData{ RoomText = "Zeta Room", Id = 20, RoomsId = 5, RoomColor = "#ECFEFF",Price=150, Amenities = "Television" },
+                new ResourceData{ RoomText = "Alpha Room", Id = 1, RoomsId = 1, RoomColor = "#FDF4FF",Price=500, Amenities =  "Television, Projector, Balcony, Whiteboard, Kitchen, Internet", Description="Max 8"  },
+                new ResourceData{ RoomText = "Beta Room", Id = 2, RoomsId = 1, RoomColor = "#F0FDF4",Price=400, Amenities = "Television, Projector, Balcony, Whiteboard, Kitchen", Description="Max 6"  },
+                new ResourceData{ RoomText = "Gamma Room", Id = 3, RoomsId = 1, RoomColor = "#ECE7FF",Price=250, Amenities =  "Television, Projector, Balcony", Description="Max 4"  },
+                new ResourceData{ RoomText = "Zeta Room", Id = 4, RoomsId = 1, RoomColor = "#ECFEFF",Price=150, Amenities = "Television", Description="Max 2"  },
+                new ResourceData{ RoomText = "Alpha Room", Id = 5, RoomsId = 2, RoomColor = "#FDF2F8",Price=500, Amenities = "Television, Projector, Balcony, Whiteboard, Kitchen, Internet", Description="Max 8" },
+                new ResourceData{ RoomText = "Beta Room", Id = 6, RoomsId = 2, RoomColor = "#FFF7ED" ,Price=400, Amenities = "Television, Projector, Balcony, Whiteboard, Kitchen", Description="Max 6" },
+                new ResourceData{ RoomText = "Gamma Room", Id = 7, RoomsId = 2, RoomColor = "#FDF4FF",Price=250, Amenities = "Television, Projector, Balcony", Description="Max 4" },
+                new ResourceData{ RoomText = "Zeta Room", Id = 8, RoomsId = 2, RoomColor = "#ECFEFF",Price=150, Amenities = "Television", Description="Max 2" },
+                new ResourceData{ RoomText = "Alpha Room", Id = 9, RoomsId = 3, RoomColor = "#FDF4FF",Price=500, Amenities = "Television, Projector, Balcony, Whiteboard, Kitchen, Internet", Description="Max 8" },
+                new ResourceData{ RoomText = "Beta Room", Id = 10, RoomsId = 3, RoomColor = "#F0FDF4",Price=400, Amenities = "Television, Projector, Balcony, Whiteboard, Kitchen", Description="Max 6"  },
+                new ResourceData{ RoomText = "Gamma Room", Id = 11, RoomsId = 3, RoomColor = "#ECE7FF",Price=250, Amenities = "Television, Projector, Balcony", Description="Max 4" },
+                new ResourceData{ RoomText = "Zeta Room", Id = 12, RoomsId = 3, RoomColor = "#ECFEFF",Price=150, Amenities = "Television", Description="Max 2" },
+                new ResourceData{ RoomText = "Alpha Room", Id = 13, RoomsId = 4, RoomColor = "#FDF2F8",Price=500, Amenities = "Television, Projector, Balcony, Whiteboard, Kitchen, Internet", Description="Max 8" },
+                new ResourceData{ RoomText = "Beta Room", Id = 14, RoomsId = 4, RoomColor = "#FFF7ED",Price=400, Amenities = "Television, Projector, Balcony, Whiteboard, Kitchen", Description="Max 6"  },
+                new ResourceData{ RoomText = "Gamma Room", Id = 15, RoomsId = 4, RoomColor = "#FDF4FF",Price=250, Amenities = "Television, Projector, Balcony", Description="Max 4" },
+                new ResourceData{ RoomText = "Zeta Room", Id = 16, RoomsId = 4, RoomColor = "#ECFEFF",Price=150, Amenities = "Television", Description="Max 2" },
+                new ResourceData{ RoomText = "Alpha Room", Id = 17, RoomsId = 5, RoomColor = "#FDF4FF",Price=500, Amenities = "Television, Projector, Balcony, Whiteboard, Kitchen, Internet", Description="Max 8" },
+                new ResourceData{ RoomText = "Beta Room", Id = 18, RoomsId = 5, RoomColor = "#F0FDF4",Price=400, Amenities = "Television, Projector, Balcony, Whiteboard, Kitchen", Description="Max 6"  },
+                new ResourceData{ RoomText = "Gamma Room", Id = 19, RoomsId = 5, RoomColor = "#ECE7FF",Price=250, Amenities = "Television, Projector, Balcony", Description="Max 4" },
+                new ResourceData{ RoomText = "Zeta Room", Id = 20, RoomsId = 5, RoomColor = "#ECFEFF",Price=150, Amenities = "Television", Description="Max 2" },
             };
             this.Range = new int[] { 200, 300 };
         }
@@ -224,6 +224,7 @@ namespace HotelBooking.Data
         public int RoomsId { get; set; }
         public string Amenities { get; set; }
         public int Price { get; set; }
+        public string Description { get; set; }
     }
 
     public class Amenity
