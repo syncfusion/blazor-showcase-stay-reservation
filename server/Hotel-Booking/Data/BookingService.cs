@@ -80,8 +80,8 @@ namespace HotelBooking.Data
                     {
                         Id = id,
                         Subject = "Steve Smith",
-                        StartTime = startDate,
-                        EndTime = endDate,
+                        StartTime = startDate.AddHours(12),
+                        EndTime = endDate.AddHours(12),
                         IsAllDay = (id % 10) == 0,
                         FloorId = floorCount + 1,
                         RoomId = i + 1,

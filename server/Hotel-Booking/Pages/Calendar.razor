@@ -44,6 +44,10 @@
         Service.CurrentDate = args.Date;
         Service.SchedulerPageRef?.StateChanged();
         Service.HeaderPageRef?.StateChanged();
+        Service.ShowCalendar = false;
+        StateHasChanged();
+        Service.ShowCalendar = true;
+        Service.CalendarPageRef?.StateChanged();
     }
 
     public void OnChange(ChangedEventArgs<DateTime> args)
@@ -58,6 +62,7 @@
     public void OnRenderDayCellHandler(RenderDayCellEventArgs args)
     {
         int count = 0;
+        if (args.Date.Month < DateTime.Now.Month) return;
         foreach (AppointmentData appointment in Service.appointmentData)
         {
             if (appointment.StartTime.Date == args.Date || appointment.EndTime.Date == args.Date)

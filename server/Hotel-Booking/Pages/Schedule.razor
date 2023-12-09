@@ -35,7 +35,7 @@
         string cssClass = string.Format("app-scheduler {0}", Service.RenderSchedule);
         <SfSchedule TValue="AppointmentData" Height="800px" @bind-SelectedDate="Service.CurrentDate" CssClass="@cssClass" @ref="Service.ScheduleRef" ShowHeaderBar="false" ShowQuickInfo="Service.Mobile ? true : false" EnableAutoRowHeight="true" AllowDragAndDrop="false" AllowResizing="false">
             <ScheduleTimeScale Enable="false"></ScheduleTimeScale>
-            <ScheduleEvents TValue="AppointmentData" EventRendered="OnEventRendered" ActionCompleted="OnActionCompleted" OnActionBegin="OnActionBegin" OnRenderCell="OnCellRendered" OnPopupOpen="OnPopupOpen" Created="OnCreated" OnCellDoubleClick="CellDoubleClick" OnCellClick="CellClick"></ScheduleEvents>
+            <ScheduleEvents TValue="AppointmentData" EventRendered="OnEventRendered" ActionCompleted="OnActionCompleted" OnActionBegin="OnActionBegin" OnRenderCell="OnCellRendered" OnPopupOpen="OnPopupOpen" Created="OnCreated" OnCellDoubleClick="CellDoubleClick" OnCellClick="CellClick" OnEventDoubleClick="EventDoubleClick"></ScheduleEvents>
             <ScheduleGroup Resources="Service.Resources" EnableCompactView="false"></ScheduleGroup>
             <ScheduleResources>
                 <ScheduleResource TItem="ResourceData" TValue="int" Query="@Service.ResourceQuery" DataSource="Service.FloorData" Field="FloorId" Title="Floors" Name="Floors" TextField="FloorText" IdField="Id" ColorField="FloorColor" AllowMultiple="false"></ScheduleResource>
@@ -105,6 +105,14 @@
                             <ValidationMessage For="()=>((context as AppointmentData).Subject)" />
                         </div>
                         <div class="flex-prop">
+                            @{
+                                if (UpdateStartTime)
+                                {
+                                    (context as AppointmentData).StartTime = (context as AppointmentData).StartTime.AddHours(12);
+                                    (context as AppointmentData).EndTime = (context as AppointmentData).EndTime.AddHours(12);
+                                    UpdateStartTime = false;
+                                }
+                            }
                             <SfDateTimePicker ID="checkIn" TValue="DateTime" Placeholder="Check In *" FloatLabelType="FloatLabelType.Always" @bind-Value="@((context as AppointmentData).StartTime)">
                                 <DateTimePickerEvents TValue="DateTime" OnRenderDayCell="@DisableDate" ValueChange="@OnStartTimeValueChanged"></DateTimePickerEvents>
                             </SfDateTimePicker>
@@ -157,9 +165,13 @@
                             @{
                                 if (IsStartTimeUpdated || IsintialLoad)
                                 {
-                                    (context as AppointmentData).EndTime = (context as AppointmentData).StartTime.AddDays(1);
-                                    IsStartTimeUpdated = false;
-                                    IsintialLoad = false;
+                                    if((context as AppointmentData).Id < 1)
+                                    {
+                                        (context as AppointmentData).EndTime = (context as AppointmentData).StartTime.AddDays(1);
+                                        IsStartTimeUpdated = false;
+                                        IsintialLoad = false;
+                                    } 
+                                    
                                 }
                             }
                             <SfDateTimePicker ID="checkOut" Placeholder="Check Out *" FloatLabelType="FloatLabelType.Always" @bind-Value="@((context as AppointmentData).EndTime)">
@@ -207,6 +219,20 @@
                         </div>
                     }
                 </CellTemplate>
+                <ResourceHeaderTemplate>
+                    @{
+                        var resourceData = (context as TemplateContext).ResourceData as ResourceData;
+                        <div class='template-wrap'>
+                            <div class="resource-details">
+                                <div class="resource-name">@(resourceData.FloorText)</div>
+                            </div>
+                            <div class="room-details">
+                                <div class="resource-room">@(resourceData.RoomText)</div>
+                                <div class="resource-description">@(resourceData.Description)</div>
+                            </div>
+                        </div>
+                    }
+                </ResourceHeaderTemplate>
             </ScheduleTemplates>
         </SfSchedule>
         <SfToast ID="toast_default" @ref="Service.ToastObj" Content="@Service.ToastContent" Timeout="5000" Icon="e-meeting" ShowCloseButton="true" Height="70px" Width="400px">
@@ -232,6 +258,8 @@
     public bool IsScheduleLoaded { get; set; }
     public bool IsintialLoad { get; set; }
     public bool IsStartTimeUpdated { get; set; }
+    public bool UpdateStartTime { get; set; }
+    public bool IsCellDoubleClick { get; set; }
     public bool IsFloorDropDownChanged { get; set; }
     public bool IsProofDropDownChanged { get; set; } = true;
     private List<Resource> ResourceCollection { get; set; } = new List<Resource>();
@@ -329,6 +357,15 @@
 
     public void OnActionCompleted(ActionEventArgs<AppointmentData> args)
     {
+        if(args.AddedRecords != null)
+        {
+            if (args.AddedRecords.Count > 0 && IsCellDoubleClick)
+            {
+                args.AddedRecords[0].StartTime = args.AddedRecords[0].StartTime.AddHours(12);
+                args.AddedRecords[0].EndTime = args.AddedRecords[0].EndTime.AddDays(-1).AddHours(12);
+                IsCellDoubleClick = false;
+            }
+        }
         Service.ShowCalendar = false;
         Service.CalendarPageRef?.StateChanged();
         Service.ShowCalendar = true;
@@ -366,6 +403,7 @@
                 else if (args.ActionType == ActionType.EventRemove)
                 {
                     Service.ToastContent = "Booking removed successfully";
+                    Service.ToastObj.Content= "Booking removed successfully";
                     Service.ToastObj.CssClass = "e-toast-success";
                     StateChanged();
                     await Service.ToastObj.ShowAsync();
@@ -439,15 +477,26 @@
 
     public void CellDoubleClick(CellClickEventArgs args)
     {
+        UpdateStartTime = true;
+        IsCellDoubleClick = true;
         int groupIndex = args.GroupIndex;
         ResourceDetails<AppointmentData> resource = Service.ScheduleRef.GetResourceByIndex(groupIndex);
         int roomsId = Convert.ToInt32(resource.ResourceData.GetType().GetProperty("RoomsId").GetValue(resource.ResourceData, null));
         Service.DropDownQuery = new Query().Where("RoomsId", "equal", roomsId);
         IsProofDropDownChanged = true;
+        Service.RoomPrice = GetRoomPrice(groupIndex);
         if(roomsId==0)
         {
             args.Cancel = true;
         } 
+    }
+
+    public void EventDoubleClick(EventClickArgs<AppointmentData> args)
+    {
+        int groupIndex = args.GroupIndex;
+        ResourceDetails<AppointmentData> resource = Service.ScheduleRef.GetResourceByIndex(groupIndex);
+        int roomsId = Convert.ToInt32(resource.ResourceData.GetType().GetProperty("RoomsId").GetValue(resource.ResourceData, null));
+        Service.DropDownQuery = new Query().Where("RoomsId", "equal", roomsId);
     }
 
     public void CellClick(CellClickEventArgs args)

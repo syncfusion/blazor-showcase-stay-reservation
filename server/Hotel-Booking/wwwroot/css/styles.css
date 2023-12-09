@@ -179,11 +179,15 @@ svg {
         width: 90%;
     }
 
-        .app-filters.e-accordion .price-filter-container .slider-price {
-            align-items: center;
-            display: flex;
-            justify-content: space-between;
-        }
+    .e-accordion .e-acrdn-item .e-acrdn-panel .e-acrdn-content > * {
+        overflow: initial;
+    }
+
+.app-filters.e-accordion .price-filter-container .slider-price {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
 
 .search-container .app-search .e-lib.e-input {
     height: 32px;
@@ -340,6 +344,48 @@ svg {
                 justify-content: space-between;
                 padding: 24px;
             }
+.e-schedule .template-wrap .resource-details {
+    padding-left: 10px;
+}
+
+.e-schedule .template-wrap .room-details {
+    padding-left: 35px;
+}
+
+.e-schedule .template-wrap .resource-details .resource-name {
+    color: #3B82F6;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 18px; /* 150% */
+    letter-spacing: 0.48px;
+    text-transform: uppercase;
+    margin-top: 5px;
+}
+
+.e-schedule .template-wrap .room-details .resource-room {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px; /* 150% */
+}
+
+.e-schedule .template-wrap .room-details .resource-description {
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px; /* 150% */
+}
+
+    .e-schedule.e-device .template-wrap .resource-details .resource-name {
+        font-size: inherit;
+        font-weight: inherit;
+    }
+
+.e-schedule .template-wrap {
+    display: flex;
+    text-align: left;
+}
 
 .app-scheduler.e-schedule .e-timeline-month-view .e-resource-group-cells.e-selected-cell {
     background: #f9fafb !important;
@@ -511,7 +557,6 @@ svg {
         }
 
 .app-sidebar-overlay {
-    background: #000;
     display: none;
     height: 100vh;
     left: 0;
@@ -521,6 +566,8 @@ svg {
     transform: none !important;
     width: 100vw;
     z-index: 1;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
 }
 
 @media screen and (width <=1024px) {
