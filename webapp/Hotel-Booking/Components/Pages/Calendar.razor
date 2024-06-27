@@ -1,0 +1,88 @@
+﻿@using Syncfusion.Blazor.Schedule
+@using Syncfusion.Blazor.Navigations
+@using Syncfusion.Blazor.Buttons
+@using Syncfusion.Blazor.Calendars
+@using Syncfusion.Blazor.Inputs
+@using Syncfusion.Blazor.DropDowns
+@using System.Globalization
+@using HotelBooking.Data
+@using System;
+@using Syncfusion.Blazor.Data;
+@using Microsoft.AspNetCore.Components;
+@using Syncfusion.Blazor;
+@using Syncfusion.Blazor.TreeMap;
+
+<div class="calendar-container">
+    @{
+        if (Service.ShowCalendar)
+        {
+            <SfCalendar TValue="DateTime" id="calendar" CssClass="app-calendar" Value="Service.CurrentDate" @ref="Service.CalendarRef">
+                <CalendarEvents TValue="DateTime" Navigated="NavigatedHandler" ValueChange="OnChange" OnRenderDayCell="OnRenderDayCellHandler"></CalendarEvents>
+            </SfCalendar>
+        }
+    }
+</div>
+
+@code {
+    [Inject]
+    public AppointmentService Service { get; set; }
+
+
+    internal void StateChanged()
+    {
+        StateHasChanged();
+    }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        Service.CalendarPageRef = this;
+    }
+
+    public void NavigatedHandler(NavigatedEventArgs args)
+    {
+        Service.CurrentDate = args.Date;
+        Service.SchedulerPageRef?.StateChanged();
+        Service.HeaderPageRef?.StateChanged();
+        Service.ShowCalendar = false;
+        StateHasChanged();
+        Service.ShowCalendar = true;
+        Service.CalendarPageRef?.StateChanged();
+    }
+
+    public void OnChange(ChangedEventArgs<DateTime> args)
+    {
+        DateTime dateTime = args.Value;
+        DateTime dateOnly = dateTime.Date;
+        Service.CurrentDate = dateOnly;
+        Service.SchedulerPageRef?.StateChanged();
+        Service.HeaderPageRef?.StateChanged();
+    }
+
+    public void OnRenderDayCellHandler(RenderDayCellEventArgs args)
+    {
+        int count = 0;
+        if (args.Date.Month < DateTime.Now.Month) return;
+        foreach (AppointmentData appointment in Service.appointmentData)
+        {
+            if (appointment.StartTime.Date == args.Date || appointment.EndTime.Date == args.Date)
+            {
+                count++;
+            }
+        }
+        if (count <= 10)
+        {
+            args.CellData.ClassList = $"{args.CellData.ClassList} available";
+        }
+
+        if (count > 10)
+        {
+            args.CellData.ClassList = $"{args.CellData.ClassList} almost-full";
+        }
+
+        if (count == 20)
+        {
+            args.CellData.ClassList = $"{args.CellData.ClassList} not-available";
+        }
+    }
+}
