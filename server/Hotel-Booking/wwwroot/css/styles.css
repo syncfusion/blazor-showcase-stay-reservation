@@ -121,6 +121,13 @@ svg {
         min-width: 100% !important;
     }
 
+@media screen and (width <= 480px) {
+    .e-calendar.app-calendar {
+        max-width: 100% !important;
+        min-width: 100% !important;
+    }
+}
+
 .app-filters.e-accordion {
     background: transparent;
     border: 0;
@@ -421,11 +428,12 @@ svg {
 
 .app-scheduler.e-schedule .e-table-wrap .e-resource-column-wrap .e-resource-column-table .e-resource-cells.e-parent-node {
     border-right-color: transparent !important;
+    height: 40px;
 }
 
 .app-scheduler.e-schedule .e-timeline-month-view.e-ignore-whitespace .e-work-cells,
 .app-scheduler.e-schedule .e-timeline-month-view.e-ignore-whitespace .e-resource-cells {
-    height: 60px;
+    height: 40px;
 }
 
 .app-scheduler.e-schedule .e-timeline-month-view .e-appointment {
@@ -494,12 +502,17 @@ svg {
 
 @media screen and (width <=540px) {
     .app-scheduler.e-schedule .e-table-container .e-schedule-table .e-resource-left-td {
-        width: 140px;
+        width: 150px;
+        padding-left: 0px;
     }
 
     .app-scheduler.e-schedule .e-table-container .e-schedule-table .e-resource-text {
         font-size: 16px;
         padding: 4px 0;
+    }
+
+    .e-schedule .template-wrap .resource-details .resource-name {
+        font-size: 13px;
     }
 
     .custom-event-editor {
@@ -561,7 +574,7 @@ svg {
     height: 100vh;
     left: 0;
     margin: 0 !important;
-    position: absolute;
+    position: fixed;
     top: 0;
     transform: none !important;
     width: 100vw;

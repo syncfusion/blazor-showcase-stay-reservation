@@ -5,6 +5,7 @@ using Syncfusion.Blazor.Data;
 using Syncfusion.Blazor.Schedule;
 using System;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Syncfusion.Blazor;
 using Syncfusion.Blazor.Inputs;
 using Syncfusion.Blazor.TreeMap;
@@ -12,7 +13,7 @@ using Syncfusion.Blazor.Navigations;
 using System.ComponentModel;
 using System.Reflection;
 
-namespace HotelBooking.Pages
+namespace HotelBooking.Components.Pages
 {
     public partial class Index
     {

@@ -33,7 +33,7 @@
     }
     @{
         string cssClass = string.Format("app-scheduler {0}", Service.RenderSchedule);
-        <SfSchedule TValue="AppointmentData" Height="800px" @bind-SelectedDate="Service.CurrentDate" CssClass="@cssClass" @ref="Service.ScheduleRef" ShowHeaderBar="false" ShowQuickInfo="Service.Mobile ? true : false" EnableAutoRowHeight="true" AllowDragAndDrop="false" AllowResizing="false">
+        <SfSchedule TValue="AppointmentData" Height="507px" @bind-SelectedDate="Service.CurrentDate" CssClass="@cssClass" @ref="Service.ScheduleRef" ShowHeaderBar="false" ShowQuickInfo="Service.Mobile ? true : false" EnableAutoRowHeight="true" AllowDragAndDrop="false" AllowResizing="false">
             <ScheduleTimeScale Enable="false"></ScheduleTimeScale>
             <ScheduleEvents TValue="AppointmentData" EventRendered="OnEventRendered" ActionCompleted="OnActionCompleted" OnActionBegin="OnActionBegin" OnRenderCell="OnCellRendered" OnPopupOpen="OnPopupOpen" Created="OnCreated" OnCellDoubleClick="CellDoubleClick" OnCellClick="CellClick" OnEventDoubleClick="EventDoubleClick"></ScheduleEvents>
             <ScheduleGroup Resources="Service.Resources" EnableCompactView="false"></ScheduleGroup>
@@ -99,7 +99,7 @@
                     </div>
                 </DateHeaderTemplate>
                 <EditorTemplate>
-                    <div class="custom-event-editor">
+                    <div class="custom-event-editor @((Service.Mobile) ? "e-device" : "")">
                         <div class="flex-prop">
                             <SfTextBox ID="guestName" FloatLabelType="FloatLabelType.Always" Placeholder="Guest Name *" @bind-Value="@((context as AppointmentData).Subject)"></SfTextBox>
                             <ValidationMessage For="()=>((context as AppointmentData).Subject)" />

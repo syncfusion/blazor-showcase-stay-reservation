@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Syncfusion.Blazor.HeatMap.Internal;
-using static HotelBooking.Pages.Index;
+using static HotelBooking.Components.Pages.Index;
 using Syncfusion.Blazor.Schedule;
 using System;
 using HotelBooking.Data;

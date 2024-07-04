@@ -2,13 +2,13 @@
 using Syncfusion.Blazor.Calendars;
 using Syncfusion.Blazor.Data;
 using Syncfusion.Blazor.Schedule;
-using HotelBooking.Pages;
+using HotelBooking.Components.Pages;
 using Syncfusion.Blazor.DropDowns;
 using Syncfusion.Blazor.Navigations;
 using Syncfusion.Blazor.Notifications;
 using Microsoft.JSInterop;
 using Syncfusion.Blazor.Inputs;
-using Index = HotelBooking.Pages.Index;
+using Index = HotelBooking.Components.Pages.Index;
 using System.ComponentModel.DataAnnotations;
 
 namespace HotelBooking.Data
