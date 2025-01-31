@@ -1,5 +1,5 @@
-using HotelBooking.Components;
-using HotelBooking.Data;
+using StayReservation.Components;
+using StayReservation.Data;
 using Syncfusion.Blazor;
 
 var builder = WebApplication.CreateBuilder(args);
