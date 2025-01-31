@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+	  <PackageReference Include="Syncfusion.Blazor.Calendars" Version="*" />
+	  <PackageReference Include="Syncfusion.Blazor.Core" Version="*" />
+	  <PackageReference Include="Syncfusion.Blazor.DropDowns" Version="*" />
+	  <PackageReference Include="Syncfusion.Blazor.HeatMap" Version="*" />
+	  <PackageReference Include="Syncfusion.Blazor.Layouts" Version="*" />
+	  <PackageReference Include="Syncfusion.Blazor.Navigations" Version="*" />
+	  <PackageReference Include="Syncfusion.Blazor.Schedule" Version="*" />
+	  <PackageReference Include="Syncfusion.Blazor.Themes" Version="*" />
+	  <PackageReference Include="Syncfusion.Blazor.TreeMap" Version="*" />
+  </ItemGroup>
+
+</Project>

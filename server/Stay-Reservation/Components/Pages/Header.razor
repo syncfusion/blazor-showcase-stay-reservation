@@ -1,0 +1,129 @@
+﻿@using Syncfusion.Blazor.Schedule
+@using Syncfusion.Blazor.Navigations
+@using Syncfusion.Blazor.Buttons
+@using Syncfusion.Blazor.Calendars
+@using Syncfusion.Blazor.Inputs
+@using Syncfusion.Blazor.DropDowns
+@using System.Globalization
+@using StayReservation.Data
+@using System;
+@using Syncfusion.Blazor.Data;
+@using Microsoft.AspNetCore.Components;
+@using Syncfusion.Blazor;
+@using Syncfusion.Blazor.TreeMap;
+
+<div class="header-container">
+    @{
+        if (!Service.Mobile)
+        {
+            <div class="search-container">
+                <SfTextBox Placeholder='Search Room' CssClass="app-search" Width="200px" ShowClearButton="true" @bind-Value="@Service.SearchValue" Input="@((Syncfusion.Blazor.Inputs.InputEventArgs  args) => ValueChangedHandler(args))"></SfTextBox>
+            </div>
+        }
+    }
+    <div class="navigation-container">
+        <div class="e-btn-group e-outline">
+            <SfButton IconCss="e-icons e-chevron-left" OnClick=OnMonthChangePrev></SfButton>
+            <SfButton Content=@Service.CurrentDate.ToString("MMMM yyyy") ReadOnly="true"></SfButton>
+            <SfButton IconCss="e-icons e-chevron-right" OnClick=OnMonthChangeNext></SfButton>
+        </div>
+    </div>
+    <div class="button-container">
+        <SfButton class="filter-button" OnClick="OpenSidebar">
+            <img src="images/filter.svg" alt="filter" />
+        </SfButton>
+        <SfButton class="new-button" OnClick="HandleEditor">
+            <img src="images/plus.svg" alt="filter" />
+            @{
+                if (!Service.Mobile)
+                {
+                    <div>New Reservation</div>
+                }
+            }
+        </SfButton>
+    </div>
+</div>
+
+@code {
+    [Inject]
+    public AppointmentService Service { get; set; }
+
+    internal void StateChanged()
+    {
+        StateHasChanged();
+    }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        Service.HeaderPageRef = this;
+    }
+
+    public void OnMonthChangeNext()
+    {
+        Service.CurrentDate = Service.CurrentDate.AddMonths(1);
+        Service.SchedulerPageRef?.StateChanged();
+        Service.CalendarPageRef?.StateChanged();
+    }
+
+    public void OnMonthChangePrev()
+    {
+        Service.CurrentDate = Service.CurrentDate.AddMonths(-1);
+        Service.SchedulerPageRef?.StateChanged();
+        Service.CalendarPageRef?.StateChanged();
+    }
+
+    public void HandleEditor()
+    {
+        DateTime Date = Service.ScheduleRef.SelectedDate;
+        AppointmentData eventData = new AppointmentData
+            {
+                Subject = "",
+                StartTime = Service.DateTimePickerStartTime,
+                EndTime = Service.DateTimePickerEndTime,
+                FloorId = 1,
+                RoomId = Service.RoomsDdlValue,
+                Price = Service.RoomPrice.ToString(),
+                Nights = Service.NoOfNights,
+                Adults = 2,
+                Children = 1,
+                Purpose = "",
+                Proof = 1,
+                ProofNumber = "",
+                Email = "",
+                Phone = ""
+            };
+        Service.ScheduleRef.OpenEditorAsync(eventData, CurrentAction.Add);
+    }
+
+    public void OpenSidebar()
+    {
+        if (Service.SidebarRef.IsOpen)
+        {
+            Service.SidebarRef.IsOpen = false;
+        }
+        else
+        {
+            Service.SidebarRef.IsOpen = true;
+            Service.IsOverlay = true;
+        }
+        Service.SidebarPageRef.StateChanged();
+    }
+
+    private void ValueChangedHandler(Syncfusion.Blazor.Inputs.InputEventArgs args)
+    {
+        if (Service.ScheduleRef != null)
+        {
+            dynamic predicate = null;
+
+            predicate = new Query().Search(args.Value, new List<string> { "RoomText" }, null, true, true);
+            Service.FilterQuery = predicate;
+            Service.SchedulerPageRef?.StateChanged();
+
+        }
+        else
+        {
+            Service.FilterQuery = null;
+        }
+    }
+}

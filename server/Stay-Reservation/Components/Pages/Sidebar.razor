@@ -1,0 +1,391 @@
+﻿@using Syncfusion.Blazor.Schedule
+@using Syncfusion.Blazor.Navigations
+@using Syncfusion.Blazor.Buttons
+@using Syncfusion.Blazor.Calendars
+@using Syncfusion.Blazor.Inputs
+@using Syncfusion.Blazor.DropDowns
+@using System.Globalization
+@using StayReservation.Data
+@using System;
+@using Syncfusion.Blazor.Data;
+@using Microsoft.AspNetCore.Components;
+@using Syncfusion.Blazor;
+@using Syncfusion.Blazor.TreeMap;
+
+<SfSidebar id="default-sidebar" class="app-sidebar" EnableGestures=false MediaQuery="(min-width: 1024px)" @ref="Service.SidebarRef">
+                <ChildContent>
+                    <div class="sidebar-header">
+                    <div class="sidebar-title">Filter By</div>
+                    <SfButton
+                      CssClass="sidebar-close e-flat e-small e-round"
+                      IconCss="e-icons e-close"
+                      OnClick="SidebarClose"
+                    />
+                    </div>
+                   <Calendar></Calendar>
+                    <div class="filter-container">
+                    <div class="filter-label">FILTER BY</div>
+                        <SfAccordion class="app-filters">
+                            <AccordionItems>
+                                <AccordionItem Header="Floors" >
+                                    <ContentTemplate>
+                                        <div class="checkbox-filter-container">
+                                            <div class="floor-filter">
+                                                <div class="filter-checkbox">
+                                                    <SfCheckBox Label="Select All" @bind-Checked="Service.SelectAllChecked" ValueChange="@((Syncfusion.Blazor.Buttons.ChangeEventArgs<bool> args) => OnSelectAllChecked(args))"></SfCheckBox>
+                                                </div>
+                                            </div>
+                                           
+                                            <div class="floor-filter">
+                                                <div class="filter-checkbox">
+                                                    <SfCheckBox TChecked="bool" Label="Ground Floor" @bind-Checked="Service.GroundFloorChecked" Value="@Service.GroundFloorId" ValueChange="@((Syncfusion.Blazor.Buttons.ChangeEventArgs<bool> args) => OnCheckBoxChange(args))"></SfCheckBox>
+                                                </div>
+                                                <div class="available-rooms">
+                                                    <span class="room-availability @GetReservedRoomStatus(1)">
+                                                        @GetReservedRoomStatus(1) @AvailableRooms(1)
+                                                    </span>
+                                                </div>
+
+                                            </div>
+                                            <div class="floor-filter">
+                                                <div class="filter-checkbox">
+                                                    <SfCheckBox TChecked="bool" Label="First Floor" @bind-Checked="Service.FirstFloorChecked" Value="@Service.FirstFloorId" ValueChange="@((Syncfusion.Blazor.Buttons.ChangeEventArgs<bool> args) => OnCheckBoxChange(args))"></SfCheckBox>
+                                                </div>
+                                            <div class="available-rooms">
+                                                <span class="room-availability @GetReservedRoomStatus(2)">
+                                                    @GetReservedRoomStatus(2) @AvailableRooms(2)
+                                                </span>
+                                            </div>
+                                            </div>
+                                            <div class="floor-filter">
+                                                <div class="filter-checkbox">
+                                                    <SfCheckBox TChecked="bool" Label="Second Floor" @bind-Checked="Service.SecondFloorChecked" Value="@Service.SecondFloorId" ValueChange="@((Syncfusion.Blazor.Buttons.ChangeEventArgs<bool> args) => OnCheckBoxChange(args))"></SfCheckBox>
+                                                </div>
+                                            <div class="available-rooms">
+                                                <span class="room-availability @GetReservedRoomStatus(3)">
+                                                    @GetReservedRoomStatus(3) @AvailableRooms(3)
+                                                </span>
+                                            </div>
+                                            </div>
+                                            <div class="floor-filter">
+                                                <div class="filter-checkbox">
+                                                    <SfCheckBox TChecked="bool" Label="Third Floor" @bind-Checked="Service.ThirdFloorChecked" Value="@Service.ThirdFloorId" ValueChange="@((Syncfusion.Blazor.Buttons.ChangeEventArgs<bool> args) => OnCheckBoxChange(args))"></SfCheckBox>
+                                                </div>
+                                            <div class="available-rooms">
+                                                <span class="room-availability @GetReservedRoomStatus(4)">
+                                                    @GetReservedRoomStatus(4) @AvailableRooms(4)
+                                                </span>
+                                            </div>
+                                            </div>
+                                            <div class="floor-filter">
+                                                <div class="filter-checkbox">
+                                                    <SfCheckBox TChecked="bool" Label="Fourth Floor" @bind-Checked="Service.FourthFloorChecked" Value="@Service.FourthFloorId" ValueChange="@((Syncfusion.Blazor.Buttons.ChangeEventArgs<bool> args) => OnCheckBoxChange(args))"></SfCheckBox>
+                                                </div>
+                                            <div class="available-rooms">
+                                                <span class="room-availability @GetReservedRoomStatus(5)">
+                                                    @GetReservedRoomStatus(5) @AvailableRooms(5)
+                                                </span>
+                                            </div>
+                                            </div>
+                                        </div>
+                                       </ContentTemplate>
+                                </AccordionItem>
+                                <AccordionItem Header="Price">
+                                    <ContentTemplate>
+                                        <div class="price-filter-container">
+                                            <SfSlider Type=SliderType.Range Value="Service.Range" CssClass="app-slider" Min="0" Max="500" @ref="Service.RangeSliderRef">
+                                                <SliderEvents TValue="int[]" OnTooltipChange="@OnSliderValueChanged" Created="OnSliderCreated "></SliderEvents>
+                                                <SliderTooltip IsVisible="true" Placement="TooltipPlacement.Before" ShowOn="TooltipShowOn.Always"></SliderTooltip>
+                                            </SfSlider>
+                                <div class="slider-price">
+                                    <span class="slider-label-start">$0</span>
+                                    <span class="slider-label-end">$500</span>
+                                </div>
+                                        </div>
+                                    </ContentTemplate>
+                                </AccordionItem>
+                                <AccordionItem Header="Features">
+                                    <ContentTemplate>
+                                        <div class="checkbox-filter-container">
+                                            <div class="filter-checkbox">
+                                                <SfCheckBox TChecked="bool" Label="Television" @bind-Checked="Service.TelevisionChecked" Value="@Service.TelevisionId" ValueChange="@((Syncfusion.Blazor.Buttons.ChangeEventArgs<bool> args) => onFeaturesChecked(args))"></SfCheckBox>
+                                            </div>
+                                            <div class="filter-checkbox">
+                                                <SfCheckBox TChecked="bool" Label="Projector" @bind-Checked="Service.ProjectorChecked" Value="@Service.ProjectorId" ValueChange="@((Syncfusion.Blazor.Buttons.ChangeEventArgs<bool> args) => onFeaturesChecked(args))"></SfCheckBox>
+                                            </div>
+                                            <div class="filter-checkbox">
+                                                <SfCheckBox TChecked="bool" Label="Balcony" @bind-Checked="Service.BalconyChecked" Value="@Service.BalconyId" ValueChange="@((Syncfusion.Blazor.Buttons.ChangeEventArgs<bool> args) => onFeaturesChecked(args))"></SfCheckBox>
+                                            </div>
+                                            <div class="filter-checkbox">
+                                                <SfCheckBox TChecked="bool" Label="Whiteboard" @bind-Checked="@Service.WhiteBoardChecked" Value="@Service.WhiteBoardId" ValueChange="@((Syncfusion.Blazor.Buttons.ChangeEventArgs<bool> args) => onFeaturesChecked(args))"></SfCheckBox>
+                                            </div>
+                                            <div class="filter-checkbox">
+                                                <SfCheckBox TChecked="bool" Label="Kitchen" @bind-Checked="@Service.KitchenChecked" Value="@Service.KitchenId" ValueChange="@((Syncfusion.Blazor.Buttons.ChangeEventArgs<bool> args) => onFeaturesChecked(args))"></SfCheckBox>
+                                            </div>
+                                            <div class="filter-checkbox">
+                                                <SfCheckBox TChecked="bool" Label="Internet" @bind-Checked="@Service.InternetChecked" Value="@Service.InternetId" ValueChange="@((Syncfusion.Blazor.Buttons.ChangeEventArgs<bool> args) => onFeaturesChecked(args))"></SfCheckBox>
+                                            </div>
+                                        </div>
+                                    </ContentTemplate>
+                                </AccordionItem>
+                            </AccordionItems>
+                        </SfAccordion>
+                </div>
+                </ChildContent>
+            </SfSidebar>
+            @{
+                if (Service.IsOverlay)
+                {
+                <div class="app-sidebar-overlay show" />
+                }
+                else
+                {
+                    <div class="app-sidebar-overlay" />
+                }
+            }
+           
+
+@code {
+    [Inject]
+    public AppointmentService Service { get; set; }
+    public Task<List<AppointmentData>> currentViewData;
+
+
+    internal void StateChanged()
+    {
+        StateHasChanged();
+    }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        Service.SidebarPageRef = this;
+    }
+
+    public void OnSelectAllChecked(Syncfusion.Blazor.Buttons.ChangeEventArgs<bool> args)
+    {
+        dynamic predicate = null;
+        if (Service.SelectAllChecked)
+        {
+            Service.GroundFloorChecked = Service.FirstFloorChecked = Service.SecondFloorChecked = Service.ThirdFloorChecked = Service.FourthFloorChecked = true;
+            FloorHandler();
+        }
+        else
+        {
+            Service.GroundFloorChecked = Service.FirstFloorChecked = Service.SecondFloorChecked = Service.ThirdFloorChecked = Service.FourthFloorChecked = false;
+            FloorHandler();
+        }
+
+    }
+    public async Task OnSliderCreated()
+    {
+
+        await Service.RangeSliderRef.RepositionAsync();
+        await Task.Delay(100);
+        await Service.RangeSliderRef.RepositionAsync();
+        StateChanged();
+    }
+
+    public void FloorHandler()
+    {
+        dynamic predicate = null;
+        if (Service.GroundFloorChecked)
+        {
+            if (predicate != null)
+            {
+                predicate = predicate.Or("Id", "equal", Convert.ToInt32(Service.GroundFloorId));
+            }
+            else
+            {
+                predicate = new WhereFilter() { Field = "Id", Operator = "equal", value = Convert.ToInt32(Service.GroundFloorId) };
+            }
+        }
+        if (Service.FirstFloorChecked)
+        {
+            if (predicate != null)
+            {
+                predicate = predicate.Or("Id", "equal", Convert.ToInt32(Service.FirstFloorId));
+            }
+            else
+            {
+                predicate = new WhereFilter() { Field = "Id", Operator = "equal", value = Convert.ToInt32(Service.FirstFloorId) };
+            }
+        }
+        if (Service.SecondFloorChecked)
+        {
+            if (predicate != null)
+            {
+                predicate = predicate.Or("Id", "equal", Convert.ToInt32(Service.SecondFloorId));
+            }
+            else
+            {
+                predicate = new WhereFilter() { Field = "Id", Operator = "equal", value = Convert.ToInt32(Service.SecondFloorId) };
+            }
+        }
+        if (Service.ThirdFloorChecked)
+        {
+            if (predicate != null)
+            {
+                predicate = predicate.Or("Id", "equal", Convert.ToInt32(Service.ThirdFloorId));
+            }
+            else
+            {
+                predicate = new WhereFilter() { Field = "Id", Operator = "equal", value = Convert.ToInt32(Service.ThirdFloorId) };
+            }
+        }
+        if (Service.FourthFloorChecked)
+        {
+            if (predicate != null)
+            {
+                predicate = predicate.Or("Id", "equal", Convert.ToInt32(Service.FourthFloorId));
+            }
+            else
+            {
+                predicate = new WhereFilter() { Field = "Id", Operator = "equal", value = Convert.ToInt32(Service.FourthFloorId) };
+            }
+        }
+        if (predicate == null)
+        {
+            predicate = new WhereFilter() { Field = "Id", Operator = "notequal", value = Convert.ToInt32(Service.GroundFloorId) }.And("Id", "notequal", Convert.ToInt32(Service.FirstFloorId)).And("Id", "notequal", Convert.ToInt32(Service.SecondFloorId)).And("Id", "notequal", Convert.ToInt32(Service.ThirdFloorId)).And("Id", "notequal", Convert.ToInt32(Service.FourthFloorId));
+        }
+        Service.ResourceQuery = new Query().Where(predicate);
+        Service.SchedulerPageRef?.StateChanged();
+    }
+
+    public void OnCheckBoxChange(Syncfusion.Blazor.Buttons.ChangeEventArgs<bool> args)
+    {
+        FloorHandler();
+    }
+
+    public void onFeaturesChecked(Syncfusion.Blazor.Buttons.ChangeEventArgs<bool> args)
+    {
+        dynamic predicate = null;
+        if (Service.TelevisionChecked)
+        {
+            if (predicate != null)
+            {
+                predicate = predicate.And(new Query().Search("Television", new List<string> { "Amenities" }, null, true, true));
+            }
+            else
+            {
+                predicate = new Query().Search("Television", new List<string> { "Amenities" }, null, true, true);
+            }
+        }
+        if (Service.ProjectorChecked)
+        {
+            if (predicate != null)
+            {
+                predicate = predicate.Search("Projector", new List<string> { "Amenities" }, null, true, true);
+            }
+            else
+            {
+                predicate = new Query().Search("Projector", new List<string> { "Amenities" }, null, true, true);
+            }
+        }
+        if (Service.BalconyChecked)
+        {
+            if (predicate != null)
+            {
+                predicate = predicate.Search("Balcony", new List<string> { "Amenities" }, null, true, true);
+            }
+            else
+            {
+                predicate = new Query().Search("Balcony", new List<string> { "Amenities" }, null, true, true);
+            }
+        }
+        if (Service.KitchenChecked)
+        {
+            if (predicate != null)
+            {
+                predicate = predicate.Search("Kitchen", new List<string> { "Amenities" }, null, true, true);
+            }
+            else
+            {
+                predicate = new Query().Search("Kitchen", new List<string> { "Amenities" }, null, true, true);
+            }
+        }
+        if (Service.WhiteBoardChecked)
+        {
+            if (predicate != null)
+            {
+                predicate = predicate.Search("Whiteboard", new List<string> { "Amenities" }, null, true, true);
+            }
+            else
+            {
+                predicate = new Query().Search("Whiteboard", new List<string> { "Amenities" }, null, true, true);
+            }
+        }
+        if (Service.InternetChecked)
+        {
+            if (predicate != null)
+            {
+                predicate = predicate.Search("Internet", new List<string> { "Amenities" }, null, true, true);
+            }
+            else
+            {
+                predicate = new Query().Search("Internet", new List<string> { "Amenities" }, null, true, true);
+            }
+        }
+
+        Service.FilterQuery = predicate;
+        Service.SchedulerPageRef?.StateChanged();
+    }
+
+    public void OnSliderValueChanged(SliderTooltipEventArgs<int[]> Args)
+    {
+        dynamic predicate = null;
+        Service.Range = new int[] { Args.Value[0], Args.Value[1] };
+        predicate = new Query().Where("Price", "GreaterThanOrEqual", Args.Value[0]).Where("Price", "LessThanOrEqual", Args.Value[1]);
+        Service.FilterQuery = predicate;
+        Service.SchedulerPageRef?.StateChanged();
+    }
+
+    public string GetReservedRoomStatus(int floorId)
+    {
+        string availableRoom;
+        availableRoom = AvailableRooms(floorId);
+        if (availableRoom == "")
+        {
+            return "full";
+        }
+        else
+        {
+            return "avail";
+        }
+    }
+
+    public string AvailableRooms(int floorId)
+    {
+        int count = 0;
+        int numberofRooms = 4;
+        int availableRooms = 0;
+        currentViewData = Service.ScheduleRef.GetEventsAsync(Service.CurrentDate, Service.CurrentDate.AddDays(1));
+        currentViewData.Result.ForEach(x =>
+        {
+            if (x.FloorId == floorId)
+            {
+                count++;
+            } 
+        });
+        availableRooms = numberofRooms - count;
+        count = 0;
+        if(availableRooms == 0)
+        {
+            return "";
+        }
+        else
+        {
+            return availableRooms.ToString();
+        }
+    }
+
+    public void SidebarClose()
+    {
+        Service.IsOverlay = false;
+        if (Service.SidebarRef.IsOpen)
+        {
+            Service.SidebarRef.IsOpen = false;
+        }
+        StateChanged();
+    }
+}

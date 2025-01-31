@@ -1,0 +1,607 @@
+﻿.sb-content-overlay {
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: fixed;
+    width: 100%;
+    height: 50%;
+    background-color: transparent;
+    overflow: hidden;
+    pointer-events: none;
+    left: 0px;
+}
+
+    .sb-content-overlay.sb-hide {
+        display: none;
+    }
+
+.sb-loading {
+    width: 56px;
+    height: 56px;
+    z-index: 10000;
+    border-radius: 50%;
+    padding: 3px;
+    box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+    overflow: hidden;
+    background: white;
+}
+
+.circular {
+    animation: rotate 2s linear infinite;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+
+svg {
+    overflow: hidden;
+    vertical-align: middle;
+}
+
+.path {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+    animation: dash 1.5s ease-in-out infinite, color 6s ease-in-out infinite;
+    stroke-linecap: round;
+    stroke: #5851e1;
+}
+
+@keyframes rotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes dash {
+    0% {
+        stroke-dasharray: 1, 200;
+        stroke-dashoffset: 0;
+    }
+
+    50% {
+        stroke-dasharray: 89, 200;
+        stroke-dashoffset: -35;
+    }
+
+    100% {
+        stroke-dasharray: 89, 200;
+        stroke-dashoffset: -124;
+    }
+}
+
+.e-calendar.app-calendar {
+    border: 0;
+    box-shadow: none;
+}
+
+    .e-calendar.app-calendar .e-footer-container {
+        display: none;
+    }
+
+    .e-calendar.app-calendar .e-content.e-month table {
+        padding: 0;
+    }
+
+    .e-calendar.app-calendar .e-content.e-month .e-cell span {
+        color: inherit;
+    }
+
+    .e-calendar.app-calendar .e-content.e-month .e-cell.available {
+        background-color: #ecfdf5;
+        color: #10b981;
+    }
+
+        .e-calendar.app-calendar .e-content.e-month .e-cell.available span {
+            color: inherit;
+        }
+
+    .e-calendar.app-calendar .e-content.e-month .e-cell.not-available {
+        background-color: #fef2f2;
+        color: #dc2626;
+    }
+
+    .e-calendar.app-calendar .e-content.e-month .e-cell.almost-full {
+        background-color: #fff7ed;
+        color: #f97316;
+    }
+
+        .e-calendar.app-calendar .e-content.e-month .e-cell.almost-full span {
+            color: inherit;
+        }
+
+        .e-calendar.app-calendar .e-content.e-month .e-cell.almost-full.e-selected,
+        .e-calendar.app-calendar .e-content.e-month .e-cell.e-cell.available.e-selected {
+            color: #fff !important;
+        }
+
+    .e-calendar.app-calendar.e-device {
+        max-width: 100% !important;
+        min-width: 100% !important;
+    }
+
+@media screen and (width <= 480px) {
+    .e-calendar.app-calendar {
+        max-width: 100% !important;
+        min-width: 100% !important;
+    }
+}
+
+.app-filters.e-accordion {
+    background: transparent;
+    border: 0;
+}
+
+    .app-filters.e-accordion .e-acrdn-item .e-acrdn-header {
+        padding: 8px 0;
+    }
+
+        .app-filters.e-accordion .e-acrdn-item .e-acrdn-header:active,
+        .app-filters.e-accordion .e-acrdn-item .e-acrdn-header:focus,
+        .app-filters.e-accordion .e-acrdn-item .e-acrdn-header:hover,
+        .app-filters.e-accordion .e-acrdn-item .e-acrdn-header:hover:focus {
+            background: transparent !important;
+        }
+
+    .app-filters.e-accordion .checkbox-filter-container {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        padding-left: 4px;
+    }
+
+        .app-filters.e-accordion .checkbox-filter-container .floor-filter {
+            align-items: center;
+            display: flex;
+            justify-content: space-between;
+        }
+
+            .app-filters.e-accordion .checkbox-filter-container .floor-filter .room-availability {
+                align-items: center;
+                border-radius: 48px;
+                display: inline-flex;
+                font-size: 12px;
+                font-style: normal;
+                font-weight: 500;
+                gap: 10px;
+                justify-content: center;
+                line-height: 18px;
+                padding: 0 8px;
+                text-transform: capitalize;
+            }
+
+                .app-filters.e-accordion .checkbox-filter-container .floor-filter .room-availability.avail {
+                    background: #ecfdf5;
+                    color: #10b981;
+                }
+
+                .app-filters.e-accordion .checkbox-filter-container .floor-filter .room-availability.full {
+                    background: #fef2f2;
+                    color: #dc2626;
+                }
+
+    .app-filters.e-accordion .price-filter-container {
+        margin: 0 auto;
+        width: 90%;
+    }
+
+    .e-accordion .e-acrdn-item .e-acrdn-panel .e-acrdn-content > * {
+        overflow: initial;
+    }
+
+.app-filters.e-accordion .price-filter-container .slider-price {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+
+.search-container .app-search .e-lib.e-input {
+    height: 32px;
+}
+
+.navigation-container {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+    .navigation-container .e-btn-group {
+        background: inherit;
+    }
+
+        .navigation-container .e-btn-group .e-btn {
+            background: transparent !important;
+            border-color: transparent !important;
+            box-shadow: none !important;
+            font-size: 18px;
+            padding: 8px;
+        }
+
+            .navigation-container .e-btn-group .e-btn[readonly] {
+                cursor: default;
+            }
+
+        .navigation-container .e-btn-group .e-btn-icon {
+            font-size: 24px;
+        }
+
+.button-container {
+    align-items: center;
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+}
+
+    .button-container .new-button {
+        height: 32px;
+        flex-shrink: 0;
+        border-radius: 4px;
+        background: #6f47ff;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+        .button-container .new-button span {
+            position: relative;
+            left: -5px;
+            bottom: 1px;
+        }
+
+        .button-container .new-button.e-btn:hover,
+        .button-container .new-button.e-btn:focus {
+            background: #6f47ff;
+            color: #fff;
+        }
+
+        .button-container .new-button .e-device {
+            display: none;
+        }
+
+    .button-container .filter-button {
+        display: none;
+    }
+
+@media screen and (width <=540px) {
+    .navigation-container .e-previous-button {
+        right: 2%;
+    }
+
+    .navigation-container .e-next-button {
+        right: 16%;
+    }
+}
+
+@media screen and (width <=640px) {
+    .button-container {
+        margin-bottom: 5px;
+    }
+
+        .button-container .new-button {
+            z-index: 1000;
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            border-radius: 62px;
+            height: 60px;
+            width: 60px;
+        }
+
+            .button-container .new-button span {
+                position: relative;
+                left: -1px;
+                bottom: 1px;
+            }
+}
+
+@media screen and (width <=1024px) {
+    .button-container .filter-button {
+        align-items: center;
+        display: flex;
+        height: 32px;
+        justify-content: center;
+        padding: 8px;
+    }
+}
+
+.app-main-container {
+    background: #e6eaed;
+    display: block;
+    height: 100vh;
+    width: 100vw;
+}
+
+    .app-main-container .e-appbar.app-header {
+        border-bottom: 1px solid #e0f2fe !important;
+        box-shadow: none;
+        height: 56px;
+        padding: 16px 32px;
+    }
+
+        .app-main-container .e-appbar.app-header .avatar-container {
+            align-items: center;
+            display: flex;
+            gap: 0.75rem;
+        }
+
+            .app-main-container .e-appbar.app-header .avatar-container .avatar-image {
+                height: 24px;
+                width: 24px;
+            }
+
+    .app-main-container .main-container {
+        display: flex;
+        height: calc(100% - 56px);
+        width: 100%;
+    }
+
+        .app-main-container .main-container .content-container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+            .app-main-container .main-container .content-container .header-container {
+                align-items: center;
+                display: flex;
+                height: 54px;
+                justify-content: space-between;
+                padding: 24px;
+            }
+.e-schedule .template-wrap .resource-details {
+    padding-left: 10px;
+}
+
+.e-schedule .template-wrap .room-details {
+    padding-left: 35px;
+}
+
+.e-schedule .template-wrap .resource-details .resource-name {
+    color: #3B82F6;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 18px; /* 150% */
+    letter-spacing: 0.48px;
+    text-transform: uppercase;
+    margin-top: 5px;
+}
+
+.e-schedule .template-wrap .room-details .resource-room {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px; /* 150% */
+}
+
+.e-schedule .template-wrap .room-details .resource-description {
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px; /* 150% */
+}
+
+    .e-schedule.e-device .template-wrap .resource-details .resource-name {
+        font-size: inherit;
+        font-weight: inherit;
+    }
+
+.e-schedule .template-wrap {
+    display: flex;
+    text-align: left;
+}
+
+.app-scheduler.e-schedule .e-timeline-month-view .e-resource-group-cells.e-selected-cell {
+    background: #f9fafb !important;
+}
+
+.app-main-container .main-container .content-container .schedule-container {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 24px;
+}
+
+    .app-main-container .main-container .content-container .schedule-container .no-schedule {
+        align-items: center;
+        background: #fff;
+        display: flex;
+        flex-direction: column;
+        font-family: Inter;
+        gap: 16px;
+        padding: 16px;
+        margin-left: 75px;
+        justify-content: center;
+    }
+
+    .app-main-container .main-container .content-container .schedule-container .hide-schedule {
+        display: none;
+    }
+
+.hide-no-schedule {
+    display: none;
+}
+
+.app-scheduler.e-schedule .e-table-wrap .e-resource-column-wrap .e-resource-column-table .e-resource-cells.e-parent-node {
+    border-right-color: transparent !important;
+    height: 40px;
+}
+
+.app-scheduler.e-schedule .e-timeline-month-view.e-ignore-whitespace .e-work-cells,
+.app-scheduler.e-schedule .e-timeline-month-view.e-ignore-whitespace .e-resource-cells {
+    height: 40px;
+}
+
+.app-scheduler.e-schedule .e-timeline-month-view .e-appointment {
+    height: 57px;
+}
+
+.app-scheduler.e-schedule .e-table-wrap .e-resource-column-wrap .e-resource-column-table .e-resource-cells.e-parent-node .e-resource-text {
+    color: #3b82f6;
+}
+
+.app-scheduler.e-schedule .e-work-cells.e-resource-group-cells {
+    border-left-color: transparent !important;
+}
+
+.app-scheduler.e-schedule .e-timeline-month-view .e-header-cells.e-date-header {
+    border-left-color: transparent !important;
+}
+
+.app-scheduler.e-schedule .template-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    justify-content: center;
+}
+
+    .app-scheduler.e-schedule .template-wrap .price-tag {
+        color: #c5c5c5;
+        text-align: center;
+        font-family: inherit;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 18px;
+    }
+
+.e-schedule-dialog .e-dlg-content {
+    background-color: #fff;
+    border-bottom: 1px solid #d1d5db;
+    border-top: 1px solid #d1d5db;
+}
+
+    .e-schedule-dialog .e-dlg-content .custom-event-editor {
+        display: flex;
+        flex-wrap: wrap;
+        row-gap: 18px;
+        column-gap: 5px;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+        .e-schedule-dialog .e-dlg-content .custom-event-editor .flex-prop {
+            flex: 0 48%;
+        }
+
+        .e-schedule-dialog .e-dlg-content .custom-event-editor.e-device .flex-prop {
+            flex: 0 100%;
+        }
+
+.e-schedule .e-timeline-month-view .e-content-wrap table tr:last-child td {
+    border-bottom-width: 1px;
+}
+
+.past-cell {
+    background: #eff1f3 !important;
+}
+
+@media screen and (width <=540px) {
+    .app-scheduler.e-schedule .e-table-container .e-schedule-table .e-resource-left-td {
+        width: 150px;
+        padding-left: 0px;
+    }
+
+    .app-scheduler.e-schedule .e-table-container .e-schedule-table .e-resource-text {
+        font-size: 16px;
+        padding: 4px 0;
+    }
+
+    .e-schedule .template-wrap .resource-details .resource-name {
+        font-size: 13px;
+    }
+
+    .custom-event-editor {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media screen and (width <=640px) {
+    .custom-event-editor {
+        grid-template-columns: 1fr;
+    }
+}
+
+.e-sidebar.app-sidebar {
+    background-color: #fff;
+    position: relative;
+}
+
+    .e-sidebar.app-sidebar .sidebar-header {
+        align-items: center;
+        display: none;
+        justify-content: space-between;
+        padding: 24px 24px 0;
+    }
+
+        .e-sidebar.app-sidebar .sidebar-header .sidebar-title {
+            font-family: Inter;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .e-sidebar.app-sidebar .sidebar-header .sidebar-close .e-btn-icon {
+            line-height: 1;
+        }
+
+    .e-sidebar.app-sidebar .calendar-container {
+        border-bottom: 1px solid #e0f2fe;
+        padding: 24px;
+    }
+
+    .e-sidebar.app-sidebar .filter-container {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        padding: 24px;
+    }
+
+        .e-sidebar.app-sidebar .filter-container .filter-label {
+            color: #94a3b8;
+            font-size: 12px;
+            font-weight: 500;
+            height: 20px;
+            line-height: 16px;
+            text-transform: uppercase;
+        }
+
+.app-sidebar-overlay {
+    display: none;
+    height: 100vh;
+    left: 0;
+    margin: 0 !important;
+    position: fixed;
+    top: 0;
+    transform: none !important;
+    width: 100vw;
+    z-index: 1;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+}
+
+@media screen and (width <=1024px) {
+    .app-sidebar.e-sidebar {
+        position: absolute;
+        top: 0;
+        transition: none !important;
+        visibility: hidden;
+    }
+
+        .app-sidebar.e-sidebar .sidebar-header {
+            display: flex;
+        }
+
+    .app-sidebar-overlay.show {
+        display: block;
+    }
+}
+
+html, body {
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+}
