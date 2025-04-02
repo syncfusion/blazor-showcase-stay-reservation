@@ -1,6 +1,6 @@
-# Hotel Booking Showcase Sample in Blazor
+# Stay Reservation Showcase Sample in Blazor
 
-The Blazor Hotel Booking Application is a powerful tool that allows hotel owners to effectively manage their business. It provides a seamless way to book and manage rooms, and it also provides insights into room occupancy, such as the number of rooms booked on the current date and the number of rooms available on each floor.
+The Blazor Stay Reservation Application is a powerful tool that allows hotel owners to effectively manage their business. It provides a seamless way to reserve and manage rooms, and it also provides insights into room occupancy, such as the number of rooms reserved on the current date and the number of rooms available on each floor.
 
 ## Deployment
 
@@ -9,16 +9,16 @@ The Blazor Hotel Booking Application is a powerful tool that allows hotel owners
 The samples requires the below requirements to run.
 
 - [Visual Studio 2022](https://visualstudio.microsoft.com/vs/)
-- [.NET 8.0](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
+- [.NET 6.0](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
 
 ### Run
 
-* Clone this repository.
-* Open the command prompt from Application root directory.
-* Run the demo using `dotnet run` command.
+- Clone this repository.
+- Open the command prompt from Application root directory.
+- Run the demo using `dotnet run` command.
 
 ## Demo
 
-### <a href="https://blazor.syncfusion.com/showcase/hotel-booking" target="_blank">Hotel Booking</a>
+### <a href="https://blazor.syncfusion.com/showcase/stay-reservation" target="_blank">Stay Reservation</a>
 
 Check all the showcase samples from <a href="https://blazor.syncfusion.com" target="_blank">here</a>.
