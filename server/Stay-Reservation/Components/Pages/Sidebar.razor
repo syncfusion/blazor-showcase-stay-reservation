@@ -5,7 +5,7 @@
 @using Syncfusion.Blazor.Inputs
 @using Syncfusion.Blazor.DropDowns
 @using System.Globalization
-@using HotelBooking.Data
+@using StayReservation.Data
 @using System;
 @using Syncfusion.Blazor.Data;
 @using Microsoft.AspNetCore.Components;
@@ -41,8 +41,8 @@
                                                     <SfCheckBox TChecked="bool" Label="Ground Floor" @bind-Checked="Service.GroundFloorChecked" Value="@Service.GroundFloorId" ValueChange="@((Syncfusion.Blazor.Buttons.ChangeEventArgs<bool> args) => OnCheckBoxChange(args))"></SfCheckBox>
                                                 </div>
                                                 <div class="available-rooms">
-                                                    <span class="room-availability @GetBookedRoomStatus(1)">
-                                                        @GetBookedRoomStatus(1) @AvailableRooms(1)
+                                                    <span class="room-availability @GetReservedRoomStatus(1)">
+                                                        @GetReservedRoomStatus(1) @AvailableRooms(1)
                                                     </span>
                                                 </div>
 
@@ -52,8 +52,8 @@
                                                     <SfCheckBox TChecked="bool" Label="First Floor" @bind-Checked="Service.FirstFloorChecked" Value="@Service.FirstFloorId" ValueChange="@((Syncfusion.Blazor.Buttons.ChangeEventArgs<bool> args) => OnCheckBoxChange(args))"></SfCheckBox>
                                                 </div>
                                             <div class="available-rooms">
-                                                <span class="room-availability @GetBookedRoomStatus(2)">
-                                                    @GetBookedRoomStatus(2) @AvailableRooms(2)
+                                                <span class="room-availability @GetReservedRoomStatus(2)">
+                                                    @GetReservedRoomStatus(2) @AvailableRooms(2)
                                                 </span>
                                             </div>
                                             </div>
@@ -62,8 +62,8 @@
                                                     <SfCheckBox TChecked="bool" Label="Second Floor" @bind-Checked="Service.SecondFloorChecked" Value="@Service.SecondFloorId" ValueChange="@((Syncfusion.Blazor.Buttons.ChangeEventArgs<bool> args) => OnCheckBoxChange(args))"></SfCheckBox>
                                                 </div>
                                             <div class="available-rooms">
-                                                <span class="room-availability @GetBookedRoomStatus(3)">
-                                                    @GetBookedRoomStatus(3) @AvailableRooms(3)
+                                                <span class="room-availability @GetReservedRoomStatus(3)">
+                                                    @GetReservedRoomStatus(3) @AvailableRooms(3)
                                                 </span>
                                             </div>
                                             </div>
@@ -72,8 +72,8 @@
                                                     <SfCheckBox TChecked="bool" Label="Third Floor" @bind-Checked="Service.ThirdFloorChecked" Value="@Service.ThirdFloorId" ValueChange="@((Syncfusion.Blazor.Buttons.ChangeEventArgs<bool> args) => OnCheckBoxChange(args))"></SfCheckBox>
                                                 </div>
                                             <div class="available-rooms">
-                                                <span class="room-availability @GetBookedRoomStatus(4)">
-                                                    @GetBookedRoomStatus(4) @AvailableRooms(4)
+                                                <span class="room-availability @GetReservedRoomStatus(4)">
+                                                    @GetReservedRoomStatus(4) @AvailableRooms(4)
                                                 </span>
                                             </div>
                                             </div>
@@ -82,8 +82,8 @@
                                                     <SfCheckBox TChecked="bool" Label="Fourth Floor" @bind-Checked="Service.FourthFloorChecked" Value="@Service.FourthFloorId" ValueChange="@((Syncfusion.Blazor.Buttons.ChangeEventArgs<bool> args) => OnCheckBoxChange(args))"></SfCheckBox>
                                                 </div>
                                             <div class="available-rooms">
-                                                <span class="room-availability @GetBookedRoomStatus(5)">
-                                                    @GetBookedRoomStatus(5) @AvailableRooms(5)
+                                                <span class="room-availability @GetReservedRoomStatus(5)">
+                                                    @GetReservedRoomStatus(5) @AvailableRooms(5)
                                                 </span>
                                             </div>
                                             </div>
@@ -340,7 +340,7 @@
         Service.SchedulerPageRef?.StateChanged();
     }
 
-    public string GetBookedRoomStatus(int floorId)
+    public string GetReservedRoomStatus(int floorId)
     {
         string availableRoom;
         availableRoom = AvailableRooms(floorId);

@@ -1,4 +1,4 @@
-﻿using HotelBooking.Data;
+﻿using StayReservation.Data;
 using Syncfusion.Blazor.Calendars;
 using Syncfusion.Blazor.Buttons;
 using Syncfusion.Blazor.Data;
@@ -13,7 +13,7 @@ using Syncfusion.Blazor.Navigations;
 using System.ComponentModel;
 using System.Reflection;
 
-namespace HotelBooking.Components.Pages
+namespace StayReservation.Components.Pages
 {
     public partial class Index
     {
@@ -27,7 +27,7 @@ namespace HotelBooking.Components.Pages
         {
             base.OnInitialized();
             Service.IndexPageRef = this;
-            BookingServices floorService = new BookingServices();
+            ReservationServices floorService = new ReservationServices();
             Service.appointmentData = floorService.GenerateStaticEvents(DateTime.Now, 5, 20, 30);
         }
     }

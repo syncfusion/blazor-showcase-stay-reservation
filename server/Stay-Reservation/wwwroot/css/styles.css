@@ -234,7 +234,6 @@ svg {
 }
 
     .button-container .new-button {
-        width: 130px;
         height: 32px;
         flex-shrink: 0;
         border-radius: 4px;
@@ -426,14 +425,14 @@ svg {
     display: none;
 }
 
-.app-scheduler.e-schedule .e-table-wrap .e-resource-column-wrap .e-resource-column-table .e-resource-cells.e-parent-node {
-    border-right-color: transparent !important;
-    height: 40px;
+.e-schedule .e-timeline-month-view.e-ignore-whitespace .e-work-cells,
+.e-schedule .e-timeline-month-view.e-ignore-whitespace .e-resource-cells,
+.e-schedule .e-timeline-month-view.e-ignore-whitespace .e-event-container {
+    height: 60px;
 }
 
-.app-scheduler.e-schedule .e-timeline-month-view.e-ignore-whitespace .e-work-cells,
-.app-scheduler.e-schedule .e-timeline-month-view.e-ignore-whitespace .e-resource-cells {
-    height: 40px;
+.e-schedule .e-resource-cells.e-child-node.e-resource-left-td .resource-details {
+    display: none;
 }
 
 .app-scheduler.e-schedule .e-timeline-month-view .e-appointment {
