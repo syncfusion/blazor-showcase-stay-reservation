@@ -6,7 +6,7 @@
 @using Syncfusion.Blazor.DropDowns
 @using Syncfusion.Blazor.Notifications
 @using System.Globalization
-@using HotelBooking.Data
+@using StayReservation.Data
 @using System;
 @using Syncfusion.Blazor.Data;
 
@@ -33,7 +33,7 @@
     }
     @{
         string cssClass = string.Format("app-scheduler {0}", Service.RenderSchedule);
-        <SfSchedule TValue="AppointmentData" Height="507px" @bind-SelectedDate="Service.CurrentDate" CssClass="@cssClass" @ref="Service.ScheduleRef" ShowHeaderBar="false" ShowQuickInfo="Service.Mobile ? true : false" EnableAutoRowHeight="true" AllowDragAndDrop="false" AllowResizing="false">
+        <SfSchedule TValue="AppointmentData" @bind-SelectedDate="Service.CurrentDate" CssClass="@cssClass" @ref="Service.ScheduleRef" ShowHeaderBar="false" ShowQuickInfo="Service.Mobile ? true : false" AllowDragAndDrop="false" AllowResizing="false">
             <ScheduleTimeScale Enable="false"></ScheduleTimeScale>
             <ScheduleEvents TValue="AppointmentData" EventRendered="OnEventRendered" ActionCompleted="OnActionCompleted" OnActionBegin="OnActionBegin" OnRenderCell="OnCellRendered" OnPopupOpen="OnPopupOpen" Created="OnCreated" OnCellDoubleClick="CellDoubleClick" OnCellClick="CellClick" OnEventDoubleClick="EventDoubleClick"></ScheduleEvents>
             <ScheduleGroup Resources="Service.Resources" EnableCompactView="false"></ScheduleGroup>
@@ -388,22 +388,22 @@
             {
                 if (args.ActionType == ActionType.EventCreate)
                 {
-                    Service.ToastContent = "Booking booked successfully";
+                    Service.ToastContent = "Reservation booked successfully";
                     Service.ToastObj.CssClass = "e-toast-success";
                     StateChanged();
                     await Service.ToastObj.ShowAsync();
                 }
                 else if (args.ActionType == ActionType.EventChange)
                 {
-                    Service.ToastContent = "Booking updated successfully";
+                    Service.ToastContent = "Reservation updated successfully";
                     Service.ToastObj.CssClass = "e-toast-success";
                     StateChanged();
                     await Service.ToastObj.ShowAsync();
                 }
                 else if (args.ActionType == ActionType.EventRemove)
                 {
-                    Service.ToastContent = "Booking removed successfully";
-                    Service.ToastObj.Content= "Booking removed successfully";
+                    Service.ToastContent = "Reservation removed successfully";
+                    Service.ToastObj.Content= "Reservation removed successfully";
                     Service.ToastObj.CssClass = "e-toast-success";
                     StateChanged();
                     await Service.ToastObj.ShowAsync();
@@ -411,7 +411,7 @@
             }
             else
             {
-                Service.ToastContent = "Room not available for booking on the selected Dates.";
+                Service.ToastContent = "Room not available for reservation on the selected Dates.";
                 Service.ToastObj.CssClass = "e-toast-warning";
                 StateChanged();
                 await Service.ToastObj.ShowAsync();

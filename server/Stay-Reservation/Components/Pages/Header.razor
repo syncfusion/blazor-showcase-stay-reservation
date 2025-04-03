@@ -5,7 +5,7 @@
 @using Syncfusion.Blazor.Inputs
 @using Syncfusion.Blazor.DropDowns
 @using System.Globalization
-@using HotelBooking.Data
+@using StayReservation.Data
 @using System;
 @using Syncfusion.Blazor.Data;
 @using Microsoft.AspNetCore.Components;
@@ -37,7 +37,7 @@
             @{
                 if (!Service.Mobile)
                 {
-                    <div>New Booking</div>
+                    <div>New Reservation</div>
                 }
             }
         </SfButton>
@@ -112,7 +112,7 @@
 
     private void ValueChangedHandler(Syncfusion.Blazor.Inputs.InputEventArgs args)
     {
-        if (Service.ScheduleRef != null)
+        if (Service.ScheduleRef != null && args.Value != null)
         {
             dynamic predicate = null;
 
@@ -124,6 +124,7 @@
         else
         {
             Service.FilterQuery = null;
+            Service.SchedulerPageRef?.StateChanged();
         }
     }
 }

@@ -2,16 +2,16 @@
 using Syncfusion.Blazor.Calendars;
 using Syncfusion.Blazor.Data;
 using Syncfusion.Blazor.Schedule;
-using HotelBooking.Components.Pages;
+using StayReservation.Components.Pages;
 using Syncfusion.Blazor.DropDowns;
 using Syncfusion.Blazor.Navigations;
 using Syncfusion.Blazor.Notifications;
 using Microsoft.JSInterop;
 using Syncfusion.Blazor.Inputs;
-using Index = HotelBooking.Components.Pages.Index;
+using Index = StayReservation.Components.Pages.Index;
 using System.ComponentModel.DataAnnotations;
 
-namespace HotelBooking.Data
+namespace StayReservation.Data
 {
     public class AppointmentService
     {
