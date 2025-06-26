@@ -6,6 +6,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+	<DefineConstants>Release</DefineConstants>
+  </PropertyGroup>
+
   <ItemGroup>
 	  <PackageReference Include="Syncfusion.Blazor.Calendars" Version="*" />
 	  <PackageReference Include="Syncfusion.Blazor.Core" Version="*" />
@@ -18,4 +22,8 @@
 	  <PackageReference Include="Syncfusion.Blazor.TreeMap" Version="*" />
   </ItemGroup>
 
+	<Target BeforeTargets="BeforeBuild" Name="minify" Condition="'$(Configuration)'=='Release'">
+	   <Exec command="npm install"/>
+	   <Exec command="npm run css-minify" />
+	</Target>
 </Project>
