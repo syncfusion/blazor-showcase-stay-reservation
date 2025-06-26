@@ -1,0 +1,24 @@
+{
+    "name": "stay-reservation",
+    "version": "1.0.0",
+    "description": "Blazor Showcase Samples - Stay-Reservation",
+    "author": "Syncfusion Inc.",
+    "license": "SEE LICENSE IN license",
+    "keywords": [
+        "blazor-stay-reservation",
+        "showcase-application-name"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/essential-studio/blazor-showcase-stay-reservation"
+    },
+    "scripts": {
+        "css-minify": "gulp minify-css"
+    },
+    "devDependencies": {
+        "gulp-clean-css": "^4.3.0",
+        "gulp-rename": "^2.0.0",
+        "gulp-uglify": "^3.0.2",
+        "gulp": "^4.0.2"
+    }
+}
