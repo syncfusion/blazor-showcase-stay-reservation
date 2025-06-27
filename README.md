@@ -1,3 +1,5 @@
+[![.NET](https://github.com/syncfusion/blazor-showcase-stay-reservation/actions/workflows/dotnet.yml/badge.svg)](https://github.com/syncfusion/blazor-showcase-stay-reservation/actions/workflows/dotnet.yml)
+
 # Stay Reservation Showcase Sample in Blazor
 
 The Blazor Stay Reservation Application is a powerful tool that allows hotel owners to effectively manage their business. It provides a seamless way to reserve and manage rooms, and it also provides insights into room occupancy, such as the number of rooms reserved on the current date and the number of rooms available on each floor.
