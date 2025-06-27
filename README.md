@@ -1,4 +1,4 @@
-[![.NET](https://github.com/syncfusion/blazor-showcase-stay-reservation/actions/workflows/dotnet.yml/badge.svg)](https://github.com/ArunKumar-SF3979/blazor-showcase-stay-reservation/actions/workflows/dotnet.yml)
+[![.NET](https://github.com/syncfusion/blazor-showcase-stay-reservation/actions/workflows/dotnet.yml/badge.svg)](https://github.com/syncfusion/blazor-showcase-stay-reservation/actions/workflows/dotnet.yml)
 
 # Stay Reservation Showcase Sample in Blazor
 
