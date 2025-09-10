@@ -22,8 +22,4 @@
 	  <PackageReference Include="Syncfusion.Blazor.TreeMap" Version="*" />
   </ItemGroup>
 
-	<Target BeforeTargets="BeforeBuild" Name="minify" Condition="'$(Configuration)'=='Release'">
-	   <Exec command="npm install"/>
-	   <Exec command="npm run css-minify" />
-	</Target>
 </Project>
