@@ -13,7 +13,7 @@
         "url": "https://github.com/essential-studio/blazor-showcase-stay-reservation"
     },
     "scripts": {
-        "css-minify": "gulp minify-css"
+        "minify": "gulp minify-css"
     },
     "devDependencies": {
         "gulp-clean-css": "^4.3.0",

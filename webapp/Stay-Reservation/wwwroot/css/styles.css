@@ -309,8 +309,9 @@ svg {
 .app-main-container {
     background: #e6eaed;
     display: block;
-    height: 100vh;
+    height: calc(100vh - 6em);
     width: 100vw;
+    overflow-y:scroll;
 }
 
     .app-main-container .e-appbar.app-header {

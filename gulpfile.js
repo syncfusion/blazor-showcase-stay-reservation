@@ -16,10 +16,14 @@ gulp.task('minify-js', function () {
 
 // CSS Minify Task
 gulp.task('minify-css', function () {
-    return gulp.src(['webapp/Stay-Reservation/wwwroot/css/**/*.css', '!webapp/Stay-Reservation/wwwroot/css/**/*.min.css']) 
+    const serverRoot = 'webapp/Stay-Reservation/wwwroot/css'
+    return gulp.src([
+            `${serverRoot}/**/*.css`,
+            `!${serverRoot}/**/*.min.css`, 
+        ])
         .pipe(cleanCSS({ compatibility: 'ie8' }))
         .pipe(rename({ suffix: '.min' }))
-        .pipe(gulp.dest('webapp/Stay-Reservation/wwwroot/css/'));
+        .pipe(gulp.dest(serverRoot));
 });
 
 //replace placeholder with actual require statement
